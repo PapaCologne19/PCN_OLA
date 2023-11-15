@@ -82,8 +82,7 @@ $errors = array();
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex justify-content-center py-4" id="logo">
                                 <a href="../index.php" class="logo d-flex align-items-center w-auto">
-                                    <img src="../assets/img/alegario_logo.png" alt="HR Logo" width="30%">
-                                    <span class="d-lg-block small mb-0" style="font-family: 'Poiret One', cursive !important; color: #000000; font-weight: 600;">ALEGARIO CURE HOSPITAL</span>
+                                    <img src="../assets/img/pcn.png" alt="HR Logo" width="30%">
                                 </a>
                             </div>
                             <!-- End Logo -->
@@ -175,7 +174,7 @@ $errors = array();
                                         </div>
                                         <div class="col-12">
                                             <br>
-                                            <p class="small mb-0" style="text-align: left !important;"><a href="javascript:void(0)" onclick="openPopup()" style="color: #000;">Forgot Password?</a></p>
+                                            <!-- <p class="small mb-0" style="text-align: left !important;"><a href="javascript:void(0)" onclick="openPopup()" style="color: #000;">Forgot Password?</a></p> -->
                                         </div>
                                         <div class="col-12">
                                             <button class="btn w-100" type="submit" name="login" style="background: #57d8cd; color: white; box-shadow: none; border-radius: 1px;">Login</button>

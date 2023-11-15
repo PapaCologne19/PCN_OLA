@@ -11,9 +11,8 @@
 <nav class="top-nav">
 <div class="nav">
     <div class="d-flex justify-content-start" id="logo" style="width: 100%;">
-      <a href="../index.php" class="logo d-flex align-items-center w-auto" style="box-shadow: none;">
-        <img src="../../assets/img/alegario_logo.png" alt="HR Logo" width="20%">
-        <span class="d-lg-block small mb-0" style="font-family: 'Poiret One', cursive !important; color: #000000; font-weight: 600;">ALEGARIO<b id="animated-text" style="font-family: 'Poiret One', cursive !important;"> CURE</b></span>
+      <a href="../index.php" class="logo d-flex align-items-center w-auto mx-3" style="box-shadow: none;">
+        <img src="../assets/img/pcn.png" alt="HR Logo" width="20%">
       </a>
     </div>
 
@@ -27,8 +26,8 @@
       <li><button class="btn"><a href="searchjob.php">HOME</a></button></li>
       <li><button class="btn"><a href="about.php">ABOUT</a></button></li>
       <li><button class="btn"><a href="contact.php">CONTACT</a></button></li>
-      <li><button class="btn"><a href="status.php">STATUS</a></button></li>
-      <li><button class="btn"><a href="exam.php">EXAM</a></button></li>
+      <!-- <li><button class="btn"><a href="status.php">STATUS</a></button></li>
+      <li><button class="btn"><a href="exam.php">EXAM</a></button></li> -->
       <li><button class="btn" id="profile"><a href="#">PROFILE</a></button></li>
       <li><button class="btn" id="logout"><a href="../body/logout.php">LOGOUT</a></button></li>
     </ul>

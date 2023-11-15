@@ -32,7 +32,7 @@ if (isset($_POST['register'])) {
   $results = mysqli_query($con, $query);
 
   if ($results) {
-    $_SESSION['message'] = "Successfully register.";
+    $_SESSION['message'] = "Successful";
     header("location: login_applicant.php");
   } else {
     $_SESSION['errorMessage'] = "Registration Unsuccessful" . mysqli_error($con);;

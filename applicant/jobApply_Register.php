@@ -5,99 +5,39 @@ include '../body/function.php';
 session_start();
 $errors = array();
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-require '../special_features/vendor/autoload.php';
-require '../special_features/vendor/phpmailer/phpmailer/src/Exception.php';
-require '../special_features/vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../special_features/vendor/phpmailer/phpmailer/src/SMTP.php';
-function sendemail_verify($email,$verify_token)
-{
-    $mail = new PHPMailer();
-    $mail->IsSMTP();
-
-    $mail->SMTPAuth   = TRUE;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-    $mail->Port       = 465;
-    $mail->Host       = "smtp.gmail.com";
-    $mail->Username   = 'jphigomera19@gmail.com';
-    $mail->Password   = 'lavhavwsxxlzvhyw';
-
-    $mail->IsHTML(true);
-    $mail->AddAddress($email, "esteemed customer");
-    $mail->SetFrom("jphigomera19@gmail.com", "Job Portal");
-    $mail->Subject = "Email Verification from Job Portal";
-
-    $email_content = "
-    <h2>You have registered to Job Portal</h2>
-    <h5>Please verify your email address to login with the given below link</h5>
-    <br><br>
-    <a href='https://jobportal.alegariocurehms.com/applicant/verify_email_applicant.php?token=$verify_token' class='btn btn-info'>Click here to verify</a>
-    ";
-
-    $content = $email_content;
-
-    $mail->MsgHTML($content);
-    $mail->Send();
-}
-
 if (isset($_POST['register'])) {
-  $email = clean(mysqli_real_escape_string($con, $_POST["email"]));
-  $password = clean(mysqli_real_escape_string($con, $_POST["password"]));
+  $source = mysqli_real_escape_string($con, $_POST["source"]);
+  $username = mysqli_real_escape_string($con, $_POST["username"]);
+  $password = mysqli_real_escape_string($con, $_POST["password"]);
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-  $firstname = clean(mysqli_real_escape_string($con, $_POST["firstname"]));
-  $middlename = clean(mysqli_real_escape_string($con, $_POST["middlename"]));
-  $lastname = clean(mysqli_real_escape_string($con, $_POST["lastname"]));
-  $gender = clean(mysqli_real_escape_string($con, $_POST["gender"]));
-  $age = clean(mysqli_real_escape_string($con, $_POST["age"]));
-  $mobile_number = clean(mysqli_real_escape_string($con, $_POST["mobile_number"]));
-  $dob = clean(mysqli_real_escape_string($con, $_POST["dob"]));
-  $pob = clean(mysqli_real_escape_string($con, $_POST["pob"]));
-  $street = clean(mysqli_real_escape_string($con, $_POST["street"]));
-  $barangay = clean(mysqli_real_escape_string($con, $_POST["barangay"]));
-  $city = clean(mysqli_real_escape_string($con, $_POST["city"]));
-  $state = clean(mysqli_real_escape_string($con, $_POST["state"]));
-  $zip = clean(mysqli_real_escape_string($con, $_POST["zip"]));
-  $verify_token = md5(rand());
+  $firstname = mysqli_real_escape_string($con, $_POST["firstname"]);
+  $middlename = mysqli_real_escape_string($con, $_POST["middlename"]);
+  $lastname = mysqli_real_escape_string($con, $_POST["lastname"]);
+  $extension_name = mysqli_real_escape_string($con, $_POST["extension_name"]);
+  $gender = mysqli_real_escape_string($con, $_POST["gender"]);
+  $civil_status = mysqli_real_escape_string($con, $_POST["civil_status"]);
+  $age = mysqli_real_escape_string($con, $_POST["age"]);
+  $mobile_number = mysqli_real_escape_string($con, $_POST["mobile_number"]);
+  $email = mysqli_real_escape_string($con, $_POST["email"]);
+  $dob = mysqli_real_escape_string($con, $_POST["dob"]);
+  $address = mysqli_real_escape_string($con, $_POST["address"]);
+  $region = mysqli_real_escape_string($con, $_POST["region"]);
+  $city = mysqli_real_escape_string($con, $_POST["city"]);
 
-  // Email checking
-  $email_check = "SELECT email_address FROM hr1_applicant WHERE email_address = '$email'";
-  $res = mysqli_query($con, $email_check);
-  if (mysqli_num_rows($res) > 0) 
-  {
-    $errors['error'] = "Email Address is already exist!";
-  } else 
-  {
-    if(!empty($email) && !empty($hashedPassword) && !empty($firstname) && !empty($middlename) && !empty($lastname) && !empty($gender) && !empty($age) && !empty($mobile_number) && !empty($dob) && !empty($pob) && !empty($street) && !empty($barangay) && !empty($city) && !empty($state) && !empty($zip)) {
+  // Insert the record into the MySQL table
+  $query = "INSERT INTO applicant(source, username, password, firstname, middlename, lastname, extension_name, gender, civil_status, age, mobile_number, email_address, birthday, present_address, city, region)
+         VALUES ('$source', '$username', '$hashedPassword', '$firstname', '$middlename', '$lastname', '$extension_name', '$gender', '$civil_status', '$age', '$mobile_number', '$email', '$dob', '$address', '$city', '$region')";
 
-      // Insert the record into the MySQL table
-      $query = "INSERT INTO hr1_applicant (email_address, password, firstname, middlename, lastname, gender, age, mobile_number, birthdate, birthplace, street, barangay, city, state, zip_code, verify_token)
-         VALUES ('$email', '$hashedPassword', '$firstname', '$middlename', '$lastname', '$gender', '$age', '$mobile_number', '$dob', '$pob', '$street', '$barangay', '$city', '$state', '$zip','$verify_token')";
+  $results = mysqli_query($con, $query);
 
-      $results = mysqli_query($con, $query);
-
-      if ($results) {
-
-        // Record was successfully inserted
-        // $_SESSION['logged_in'] = array(
-        //   'email' => $row['email_address'],
-        //   'password' => $row['password']
-        // );
-        $_SESSION['email'] = $row['email_address'];
-        $_SESSION['password'] = $row['password'];
-
-        sendemail_verify("$email","$verify_token");
-        $_SESSION['message'] = "Successfully register. Please check your email for verification.";
-        echo '<script type="text/javascript">window.close();</script>';
-      } else {
-        // Insertion failed
-        echo "Registration Unsuccessful";
-      }
-    }
+  if ($results) {
+    $_SESSION['message'] = "Successful";
+    echo '<script type="text/javascript">window.close();</script>';
+  } else {
+    $_SESSION['errorMessage'] = "Registration Unsuccessful" . mysqli_error($con);;
   }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -154,7 +94,6 @@ if (isset($_POST['register'])) {
 </head>
 
 <body>
-  <?php include '../body/loader.php'; ?>
   <main>
     <div class="row justify-content-right" style="width: 100vh;"></div>
     <img src="../img/Enter OTP-cuate.svg" width="40%" class="rounded" alt="..." id="bg">
@@ -187,8 +126,7 @@ if (isset($_POST['register'])) {
 
               <div class="d-flex justify-content-center py-4" id="logo">
                 <a href="../index.php" class="logo d-flex align-items-center w-auto">
-                  <img src="../assets/img/alegario_logo.png" alt="HR Logo" width="30%">
-                  <span class="d-lg-block small mb-0" style="font-family: 'Poiret One', cursive !important; font-weight: 600; color: #000;">ALEGARIO CURE HOSPITAL</span>
+                  <img src="../assets/img/pcn.png" alt="HR Logo" width="30%">
                 </a>
               </div><!-- End Logo -->
 
@@ -201,17 +139,28 @@ if (isset($_POST['register'])) {
                     <br>
                   </div>
 
-                 <form class="row g-3 needs-validation" novalidate method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-
-                    <div class="form-floating col-sm-12 col-md-12 col-lg-6">
-                      <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
-                      <label for="email" style="color: #000">Email Address</label>
+                  <form class="row g-3 needs-validation" novalidate method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                    <div class="form-floating col-sm-12 col-md-6 col-lg-6">
+                      <select name="source" id="source" class="form-select" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                        <option value=""></option>
+                        <option value="REFERRAL">REFERRAL</option>
+                        <option value="SOCIAL MEDIA">SOCIAL MEDIA</option>
+                      </select>
+                      <label for="source" style="color: #000">Source</label>
                       <div class="invalid-feedback">
-                        Please input Email Address.
+                        Please input Source.
                       </div>
                     </div>
 
-                    <div class="form-floating col-md-12 col-lg-6">
+                    <div class="form-floating col-sm-12 col-md-12 col-lg-12">
+                      <input type="text" class="form-control" id="username" name="username" placeholder="Username" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                      <label for="email" style="color: #000">Username</label>
+                      <div class="invalid-feedback">
+                        Please input Username.
+                      </div>
+                    </div>
+
+                    <div class="form-floating col-md-12 col-lg-12">
                       <input type="password" class="form-control validate" name="password" id="password" placeholder="Password" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                       <label for="password" style="color: #000">Password</label>
                       <div class="invalid-feedback">Please input Password.</div>
@@ -226,26 +175,30 @@ if (isset($_POST['register'])) {
                     </div>
 
 
-                    <div class="form-floating  col-md-12 col-lg-4">
+                    <div class="form-floating  col-md-12 col-lg-12">
                       <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
                       <label for="firstname" style="color: #000">First Name</label>
                       <div class="invalid-feedback">
                         Please input First Name.
                       </div>
                     </div>
-                    <div class="form-floating  col-md-12 col-lg-4">
-                      <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Middle Name" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                    <div class="form-floating  col-md-12 col-lg-12">
+                      <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Middle Name" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;">
                       <label for="middlename" style="color: #000">Middle Name</label>
                       <div class="invalid-feedback">
                         Please input Middle Name.
                       </div>
                     </div>
-                    <div class="form-floating  col-md-12 col-lg-4">
+                    <div class="form-floating  col-md-12 col-lg-12">
                       <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
                       <label for="lastname" style="color: #000">Last Name</label>
                       <div class="invalid-feedback">
                         Please input Last Name.
                       </div>
+                    </div>
+                    <div class="form-floating  col-md-12 col-lg-12">
+                      <input type="text" class="form-control" id="extension_name" name="extension_name" placeholder="Extension Name" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;">
+                      <label for="extension_name" style="color: #000">Extension Name</label>
                     </div>
 
                     <fieldset>
@@ -262,69 +215,80 @@ if (isset($_POST['register'])) {
                       </div>
                     </fieldset>
 
-                    <div class="form-floating  col-md-12 col-lg-2">
-                      <input type="number" class="form-control" name="age" id="age" placeholder="Age" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
-                      <label for="age" class="form-label">Age</label>
+
+                    <div class="form-floating  col-md-6 col-lg-6">
+                      <select name="civil_status" id="civil_status" class="form-select" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                        <option value=""></option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Separated">Separated</option>
+                      </select>
+                      <label for="civil_status" class="form-label">Civil Status</label>
                       <div class="invalid-feedback">
-                        Please input Age.
+                        Please input Civil Status.
                       </div>
                     </div>
-                    <div class="form-floating  col-md-12 col-lg-4">
-                      <input type="number" class="form-control" name="mobile_number" id="mobile_number" placeholder="Mobile Number" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+
+                    <div class="form-floating  col-md-6 col-lg-6">
+                      <input type="text" class="form-control" name="mobile_number" id="mobile_number" maxlength="11" placeholder="Mobile Number" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
                       <label for="mobile_number" class="form-label">Mobile Number</label>
                       <div class="invalid-feedback">
                         Please input Mobile Number.
                       </div>
                     </div>
-                    <div class="form-floating col-md-12 col-lg-3">
-                      <input type="date" class="form-control" name="dob" id="dob" placeholder="Date of Birth" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                    <div class="form-floating col-sm-12 col-md-12 col-lg-5">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                      <label for="email" style="color: #000">Email Address</label>
+                      <div class="invalid-feedback">
+                        Please input Email Address.
+                      </div>
+                    </div>
+                    <div class="form-floating col-md-12 col-lg-5">
+                      <input type="date" class="form-control" name="dob" id="dob" onchange="calculateAge()" placeholder="Date of Birth" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
                       <label for="dob" class="form-label">Date of Birth</label>
                       <div class="invalid-feedback">
-                        Please input Date of Birth.
+                        Please input Birthday.
                       </div>
                     </div>
-                    <div class="form-floating  col-md-12 col-lg-3">
-                      <input type="text" class="form-control" name="pob" id="pob" placeholder="Place of Birth" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important;;box-shadow: none !important; border-color: #000 !important;" required>
-                      <label for="pob" class="form-label">Place of Birth</label>
+                    <div class="form-floating  col-md-12 col-lg-2">
+                      <input type="number" class="form-control" name="age" id="age" placeholder="Age" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" readonly>
+                      <label for="age" class="form-label">Age</label>
+                    </div>
+                    <div class="form-floating  col-md-12 col-lg-12">
+                      <input type="text" class="form-control" name="address" id="address" placeholder="Address" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                      <label for="Address" class="form-label">Present Address</label>
                       <div class="invalid-feedback">
-                        Please input Place of Birth.
+                        Please input Present Address.
                       </div>
                     </div>
-                    <div class="form-floating  col-md-12 col-lg-7">
-                      <input type="text" class="form-control" name="street" id="street" placeholder="Ex. 1234 Main St" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
-                      <label for="street" class="form-label">Street</label>
+                    <div class="form-floating  col-md-6 col-lg-6">
+                      <select name="region" id="region" class="form-select" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                        <option value=""></option>
+                        <?php
+                        $select_region = "SELECT * FROM region";
+                        $select_region_result = $con->query($select_region);
+                        while ($select_region_row = mysqli_fetch_assoc($select_region_result)) {
+                        ?>
+                          <option value="<?php echo $select_region_row['regCode'] ?>"><?php echo $select_region_row['regDesc'] ?></option>
+                        <?php } ?>
+                      </select>
+                      <label for="Region" class="form-label">Region</label>
                       <div class="invalid-feedback">
-                        Please input Street.
+                        Please input Present Region.
                       </div>
                     </div>
-                    <div class="form-floating  col-md-12 col-lg-5">
-                      <input type="text" class="form-control" name="barangay" id="barangay" placeholder="Ex. Barangay Kaligayahan Quirino Highway, Novaliches" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
-                      <label for="barangay" class="form-label">Barangay</label>
-                      <div class="invalid-feedback">
-                        Please input Barangay.
-                      </div>
-                    </div>
-                    <div class="form-floating  col-md-12 col-lg-4">
-                      <input type="text" class="form-control" name="city" id="city" placeholder="Ex. Quezon City" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                    <div class="form-floating  col-md-6 col-lg-6">
+                      <select name="city" id="city" class="form-select" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                        <option value=""></option>
+                        <option value="">ads</option>
+                      </select>
                       <label for="city" class="form-label">City</label>
                       <div class="invalid-feedback">
-                        Please input City.
+                        Please input Present City.
                       </div>
                     </div>
-                    <div class="form-floating  col-md-12 col-lg-4">
-                      <input type="text" class="form-control" name="state" id="state" placeholder="Ex. Metro Manila, Philippines" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
-                      <label for="state" class="form-label">State</label>
-                      <div class="invalid-feedback">
-                        Please input State.
-                      </div>
-                    </div>
-                    <div class="form-floating  col-md-12 col-lg-4">
-                      <input type="number" class="form-control" name="zip" id="zip" placeholder="Ex. 1119" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
-                      <label for="zip" class="form-label">Zip Code</label>
-                      <div class="invalid-feedback">
-                        Please input Zip Code.
-                      </div>
-                    </div>
+
 
                     <div class="col-12">
                       <br><br>
@@ -333,7 +297,8 @@ if (isset($_POST['register'])) {
 
                     <div class="col-12">
                       <button class="btn w-100" type="submit" id="register" name="register" style="background: #57d8cd; color: white; box-shadow: none;">Register</button>
-                      <br><br>  
+                      <br><br>
+                      <a href="../applicant/login_applicant.php" class="small mb-0" style="color: #000; ">Cancel Registration</a>
                     </div>
                     <br><br>
                   </form>
@@ -394,17 +359,6 @@ if (isset($_POST['register'])) {
           }
         }
 
-        // specialChar=false;
-        // for(var i=0; i<val.length;i++){
-        //     for(var j=0; j<specialChars.length; j++){
-        //         if(val[i]==specialChars[j]){
-        //             specialChar = true;
-        //         }
-        //     }
-        // }
-
-        console.log(leng, bigLetter, num, specialChar);
-
         if (leng == true && bigLetter == true && num == true) {
           $(this).addClass("valid").removeClass("invalid");
           $requirements.removeClass("wrong").addClass("good");
@@ -437,6 +391,56 @@ if (isset($_POST['register'])) {
           $passwordAlert.hide();
         }
       });
+    });
+
+    // For City and Region
+    $("#region").on("change", function() {
+      var x_values = $("#region").find(":selected").val();
+
+      $.ajax({
+        url: 'region.php',
+        type: 'POST',
+        data: {
+          city_code: x_values
+        },
+        success: function(result) {
+          result = JSON.parse(result);
+
+          // Empty the options of the specific dropdown with ID 'cityn'
+          $("#city").empty();
+
+          // Append new options
+          result.forEach(function(item, index) {
+            var option = $("<option>").text(item['city_name']).val(item['city_name']);
+            $("#city").append(option);
+          });
+        },
+        error: function(result) {
+          console.log(result)
+        }
+      });
+    });
+
+    // For birthday and age 
+    function calculateAge() {
+      // Get the date of birth from the input field
+      const birthdate = document.getElementById("dob").value;
+
+      // Calculate the age
+      const birthTimestamp = new Date(birthdate).getTime();
+      const currentTimestamp = new Date().getTime();
+      const age = new Date(currentTimestamp - birthTimestamp).getUTCFullYear() - 1970;
+
+      // Update the age input field with the calculated age
+      document.getElementById("age").value = age;
+    }
+
+    // Date Format
+    flatpickr("#dob", {
+      dateFormat: "m/d/Y", // Set the desired date format (MM-DD-YYYY)
+      altInput: false, // Enable the alternate input field
+      altFormat: "F j, Y", // Set the format for the alternate input field (placeholder)
+      placeholder: "Select a date", // Set the text for the placeholder
     });
   </script>
   

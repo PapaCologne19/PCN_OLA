@@ -189,8 +189,6 @@
         <div class="col-sm-3 col-md-2" id="footer_links">
           <div class="d-flex justify-content-start py-4" id="logo">
             <a href="index.php" class="logo d-flex align-items-center w-auto">
-              <img src="assets/img/alegario_logo.png" alt="HR Logo" width="28%">
-              <span class="d-lg-block small mb-0" style="font-family: 'Poiret One', cursive !important; color: #fff !important; font-weight: 500;">ALEGARIO<b id="animated-text"> CURE</b></span>
             </a>
           </div>
         </div>

@@ -115,8 +115,7 @@ if (isset($_POST['login'])) {
 
               <div class="d-flex justify-content-center py-4" id="logo">
                 <a href="../index.php" class="logo d-flex align-items-center w-auto">
-                  <img src="../assets/img/alegario_logo.png" alt="HR Logo" width="30%">
-                  <span class="d-lg-block small mb-0" style="font-family: 'Poiret One', cursive !important; color: #000000; font-weight: 600;">ALEGARIO CURE HOSPITAL</span>
+                  <img src="../assets/img/pcn.png" alt="HR Logo" width="30%">
                 </a>
               </div>
               <!-- End Logo -->

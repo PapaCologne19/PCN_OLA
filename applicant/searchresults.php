@@ -3,7 +3,7 @@ include '../database/connection.php';
 include '../body/function.php';
 session_start();
 
-if (isset($_SESSION['email'], $_SESSION['password'])) {
+if (isset($_SESSION['username'], $_SESSION['password'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en"> 
@@ -59,7 +59,7 @@ if (isset($_SESSION['email'], $_SESSION['password'])) {
 </head>
 
 <body>
-  <?php include '../body/loader.php';
+  <?php
   include 'page/header.php'; ?>
 
   <br><br><br><br><br><br><br><br>
@@ -85,7 +85,11 @@ if (isset($_SESSION['email'], $_SESSION['password'])) {
         <?php
         if (isset($_GET['searchbtn'])) {
           $search = clean(mysqli_real_escape_string($con, $_GET['search']));
-          $query = "SELECT *, TIMESTAMPDIFF(SECOND, date_posted, NOW()) as diff FROM hr_job_list";
+          $query = "SELECT *, TIMESTAMPDIFF(SECOND, date_approved, NOW()) as diff
+          FROM projects 
+          WHERE project_title LIKE '%$search%' OR 
+                EXISTS (SELECT * FROM mrf WHERE projects.mrf_tracking = mrf.tracking AND mrf.outlet LIKE '%$search%')";
+
           $result = mysqli_query($con, $query);
           $queryResult = mysqli_num_rows($result);
           
@@ -95,7 +99,11 @@ if (isset($_SESSION['email'], $_SESSION['password'])) {
          <?php
          if (mysqli_num_rows($result)) {
           while ($row = mysqli_fetch_assoc($result)) {
-            $image = $row['logo'];
+            $tracking = $row['mrf_tracking'];
+          $select = "SELECT * FROM mrf WHERE tracking = '$tracking'";
+          $select_result = $con->query($select);
+          while($select_row = $select_result->fetch_assoc()){
+            $image = '../assets/img/pcn.png';
             $diff = $row['diff'];
             if ($diff < 60) { 
               $time_ago = $diff . " seconds ago";
@@ -114,15 +122,14 @@ if (isset($_SESSION['email'], $_SESSION['password'])) {
             }
 
          ?>
-              <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card" style="width: 100%; height: 400px;">
                   <a href="job_details.php?jobid=<?php echo $row['id']; ?>" style="text-decoration: none;">
                     <div class="card-body" style="background: none !important;">
                       <img width="30%" alt="Company Logo" style="box-sizing: border-box;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
-                      <p class="card-title" style="text-align: left !important;"><?php echo $row['job_title']; ?></p>
-                      <p><?php echo $row['department_name']; ?> Department</p>
-                      <p><strong><?php echo $row['city'], ", ", $row['state']; ?></strong></p>
-                      <p><strong><?php echo $row['monthly_salary']; ?></strong></p>
+                      <p class="card-title" style="text-align: left !important;"><?php echo $row['project_title']; ?></p>
+                      <p><?php echo $row['client_company_id']; ?> Department</p>
+                      <p><strong><?php echo $select_row['outlet']; ?></strong></p>
                       <p>Posted on <?php echo $time_ago; ?></p>
                     </div>
                   </a>
@@ -131,10 +138,12 @@ if (isset($_SESSION['email'], $_SESSION['password'])) {
               </div>
         <?php
             }
-          } else {
+            }
+          }
+          else {
             echo "No Result Found";
           }
-            }
+        }
      
         ?>
 
@@ -143,6 +152,7 @@ if (isset($_SESSION['email'], $_SESSION['password'])) {
       </div>
     </div>
   </div>
+
 
 
 

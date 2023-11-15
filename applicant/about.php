@@ -4,7 +4,7 @@ include '../body/function.php';
 session_start();
 
 
-if (isset($_SESSION['email'], $_SESSION['password'])) {
+if (isset($_SESSION['username'], $_SESSION['password'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en-us">
