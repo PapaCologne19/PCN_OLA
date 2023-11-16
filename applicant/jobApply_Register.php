@@ -144,7 +144,7 @@ if (isset($_POST['register'])) {
                       <select name="source" id="source" class="form-select" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
                         <option value=""></option>
                         <option value="REFERRAL">REFERRAL</option>
-                        <option value="SOCIAL MEDIA">SOCIAL MEDIA</option>
+                        <option value="NON REFERRAL">NON REFERRAL</option>
                       </select>
                       <label for="source" style="color: #000">Source</label>
                       <div class="invalid-feedback">
@@ -244,16 +244,12 @@ if (isset($_POST['register'])) {
                         Please input Email Address.
                       </div>
                     </div>
-                    <div class="form-floating col-md-12 col-lg-5">
-                      <input type="date" class="form-control" name="dob" id="dob" onchange="calculateAge()" placeholder="Date of Birth" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                    <div class="form-floating col-md-12 col-lg-7">
+                      <input type="date" class="form-control" name="dob" id="dob" onchange="calculateAge()" placeholder="Date of Birth" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;">
                       <label for="dob" class="form-label">Date of Birth</label>
-                      <div class="invalid-feedback">
-                        Please input Birthday.
-                      </div>
                     </div>
                     <div class="form-floating  col-md-12 col-lg-2">
-                      <input type="number" class="form-control" name="age" id="age" placeholder="Age" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" readonly>
-                      <label for="age" class="form-label">Age</label>
+                      <input type="hidden" class="form-control" name="age" id="age" placeholder="Age" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" readonly>
                     </div>
                     <div class="form-floating  col-md-12 col-lg-12">
                       <input type="text" class="form-control" name="address" id="address" placeholder="Address" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>

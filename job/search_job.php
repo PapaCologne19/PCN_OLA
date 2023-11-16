@@ -55,7 +55,7 @@ include '../body/function.php';
 </head>
 
 <body>
-  <?php 
+  <?php
   include '../body/header.php';
   ?>
   <!-- Main Page -->
@@ -94,6 +94,7 @@ include '../body/function.php';
       $result = mysqli_query($con, $query);
       $row = mysqli_num_rows($result);
 
+      
 
       ?>
       <p>1-12 out of <?php echo $row; ?> JOBS</p>
@@ -107,50 +108,50 @@ include '../body/function.php';
           $tracking = $row['mrf_tracking'];
           $select = "SELECT * FROM mrf WHERE tracking = '$tracking'";
           $select_result = $con->query($select);
-          while($select_row = $select_result->fetch_assoc()){
-          $image = '../assets/img/pcn.png';
-          $diff = $row['diff'];
-          if ($diff < 60) {
-            $time_ago = $diff . " seconds ago";
-          } else if ($diff < 3600) {
-            $time_ago = floor($diff / 60) . " minute" . ((floor($diff / 60) > 1) ? "s" : "") . " ago";
-          } else if ($diff < 86400) {
-            $time_ago = floor($diff / 3600) . " hour" . ((floor($diff / 3600) > 1) ? "s" : "") . " ago";
-          } else if ($diff < 604800) {
-            $time_ago = floor($diff / 86400) . " day" . ((floor($diff / 86400) > 1) ? "s" : "") . " ago";
-          } else if ($diff < 2592000) {
-            $time_ago = floor($diff / 604800) . " week" . ((floor($diff / 604800) > 1) ? "s" : "") . " ago";
-          } else if ($diff < 31536000) {
-            $time_ago = floor($diff / 2592000) . " month" . ((floor($diff / 2592000) > 1) ? "s" : "") . " ago";
-          } else {
-            $time_ago = floor($diff / 31536000) . " year" . ((floor($diff / 31536000) > 1) ? "s" : "") . " ago";
-          }
+          while ($select_row = $select_result->fetch_assoc()) {
+            $image = '../assets/img/pcn.png';
+            $diff = $row['diff'];
+            if ($diff < 60) {
+              $time_ago = $diff . " seconds ago";
+            } else if ($diff < 3600) {
+              $time_ago = floor($diff / 60) . " minute" . ((floor($diff / 60) > 1) ? "s" : "") . " ago";
+            } else if ($diff < 86400) {
+              $time_ago = floor($diff / 3600) . " hour" . ((floor($diff / 3600) > 1) ? "s" : "") . " ago";
+            } else if ($diff < 604800) {
+              $time_ago = floor($diff / 86400) . " day" . ((floor($diff / 86400) > 1) ? "s" : "") . " ago";
+            } else if ($diff < 2592000) {
+              $time_ago = floor($diff / 604800) . " week" . ((floor($diff / 604800) > 1) ? "s" : "") . " ago";
+            } else if ($diff < 31536000) {
+              $time_ago = floor($diff / 2592000) . " month" . ((floor($diff / 2592000) > 1) ? "s" : "") . " ago";
+            } else {
+              $time_ago = floor($diff / 31536000) . " year" . ((floor($diff / 31536000) > 1) ? "s" : "") . " ago";
+            }
+          
 
       ?>
-          <div class="col-lg-3 col-md-6 col-sm-12">
-            <?php if ($row['status'] === "1") { ?>
-              <div class="card-content" style="display: none;">
-                <div class="card" style="width: 100%; height: 400px;">
-                  <a href="job_details.php?jobid=<?php echo $row['id']; ?>" style="text-decoration: none;">
-                    <div class="card-body">
-                      <img width="30%" alt="Company Logo" style="box-sizing: border-box;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
-                      <p class="card-title" style="text-align: left !important; color: #213675 !important;"><?php echo $row['project_title']; ?></p>
-                      <p style="text-transform: capitalize; font-weight: 600"><?php echo $row['client_company_id']; ?></p>
-                      <p><?php echo $select_row['outlet']; ?></p>
-                      <p style="color: #6e6e6e; z-index: -1; background: transparent;">Posted on <?php echo $time_ago; ?></p>
-                    </div>
-                  </a>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <?php if ($row['status'] === "1") { ?>
+                <div class="card-content" style="display: none;">
+                  <div class="card" style="width: 100%; height: 400px;">
+                    <a href="job_details.php?jobid=<?php echo $row['id']; ?>" style="text-decoration: none;">
+                      <div class="card-body">
+                        <img width="30%" alt="Company Logo" style="box-sizing: border-box;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
+                        <p class="card-title" style="text-align: left !important; color: #213675 !important;"><?php echo $row['project_title']; ?></p>
+                        <p style="text-transform: capitalize; font-weight: 600"><?php echo $row['client_company_id']; ?></p>
+                        <p style="color: #6e6e6e; z-index: -1; background: transparent;">Posted on <?php echo $time_ago; ?></p>
+                      </div>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            <?php
-            }
-            ?>
+              <?php
+              }
+              ?>
 
-          </div>
+            </div>
       <?php
+          }
         }
       }
-    }
       ?>
 
 
@@ -173,7 +174,7 @@ include '../body/function.php';
   </div>
   <!-- END OF AVAILABLE JOBS -->
 
-  
+
 
   <script>
     function getPageList(totalPages, page, maxLength) {

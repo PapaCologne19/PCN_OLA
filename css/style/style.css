@@ -312,7 +312,7 @@ html, body{
 
  #home-button:hover{
   background: #2fada2;
-  border: 1px solid #0c0a0a !important;
+  border: 1px solid #2fada2 !important;
   color: #fff !important;
   transition: .6s ease-in-out;
 }

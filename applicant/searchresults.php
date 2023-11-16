@@ -12,7 +12,8 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="../img/hrlogo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/img/alegario_logo.png" type="image/x-icon">
+
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -128,8 +129,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                     <div class="card-body" style="background: none !important;">
                       <img width="30%" alt="Company Logo" style="box-sizing: border-box;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
                       <p class="card-title" style="text-align: left !important;"><?php echo $row['project_title']; ?></p>
-                      <p><?php echo $row['client_company_id']; ?> Department</p>
-                      <p><strong><?php echo $select_row['outlet']; ?></strong></p>
+                      <p><?php echo $row['client_company_id']; ?></p>
                       <p>Posted on <?php echo $time_ago; ?></p>
                     </div>
                   </a>

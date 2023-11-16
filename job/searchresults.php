@@ -127,8 +127,7 @@ include '../body/function.php';
                     <div class="card-body" style="background: none !important;">
                       <img width="30%" alt="Company Logo" style="box-sizing: border-box;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
                       <p class="card-title" style="text-align: left !important;"><?php echo $row['project_title']; ?></p>
-                      <p><?php echo $row['client_company_id']; ?> Department</p>
-                      <p><strong><?php echo $select_row['outlet']; ?></strong></p>
+                      <p><?php echo $row['client_company_id']; ?></p>
                       <p>Posted on <?php echo $time_ago; ?></p>
                     </div>
                   </a>

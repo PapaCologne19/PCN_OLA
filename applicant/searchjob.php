@@ -66,30 +66,28 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
 
 
 
-    <?php
-    if (isset($_SESSION['message'])) { ?>
-      <script>
-        Swal.fire({
-          icon: 'success',
-          title: "<?php echo $_SESSION['message']; ?>",
-        })
-      </script>
-    <?php unset($_SESSION['message']);
-    } ?>
+<?php
+      if (isset($_SESSION['successMessage'])) { ?>
+        <script>
+          Swal.fire({
+            icon: 'success',
+            title: "<?php echo $_SESSION['successMessage']; ?>",
+          })
+        </script>
+      <?php unset($_SESSION['successMessage']);
+      } ?>
 
-
-    <?php
-    if (isset($_SESSION['errorMessage'])) { ?>
-      <script>
-        Swal.fire({
-          icon: 'error',
-          title: 'Engk...',
-          text: "<?php echo $_SESSION['errorMessage']; ?>",
-        })
-      </script>
-    <?php unset($_SESSION['errorMessage']);
-    } ?>
-
+      <?php
+      if (isset($_SESSION['errorMessage'])) { ?>
+        <script>
+          Swal.fire({
+            icon: 'error',
+            title: "<?php echo $_SESSION['errorMessage']; ?>",
+          })
+        </script>
+      <?php unset($_SESSION['errorMessage']);
+      }
+      ?>
 
 
 
@@ -172,7 +170,6 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                   <img width="30%" alt="Company Logo" style="box-sizing: border-box;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
                   <p class="card-title" style="text-align: left !important; color: #213675 !important;"><?php echo $row['project_title']; ?></p>
                   <p style="text-transform: capitalize; font-weight: 600"><?php echo $row['client_company_id']; ?></p>
-                  <p><?php echo $select_row['outlet']; ?></p>
                   <p style="color: #6e6e6e; z-index: -1; background: transparent;">Posted on <?php echo $time_ago; ?></p>
                 </div>
               </a>

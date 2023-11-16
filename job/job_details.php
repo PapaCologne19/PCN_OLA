@@ -102,7 +102,7 @@ if (isset($_POST['apply'])) {
       <?php
 
       $id = $_GET['jobid'];
-      $query = "SELECT project.*, mrf.*, DATE_FORMAT(mrf.date_needed, '%M %d, %Y')as formatted_date
+      $query = "SELECT project.*, mrf.*, DATE_FORMAT(project.date_approved, '%M %d, %Y')as formatted_date
       FROM projects project, mrf mrf
       WHERE project.mrf_tracking = mrf.tracking
       AND project.id = '$id'";
@@ -123,6 +123,28 @@ if (isset($_POST['apply'])) {
 
         $results = mysqli_query($con, $query);
         $rows = mysqli_fetch_assoc($results);
+        $outlet = $rows['outlet'];
+
+        $html = '';
+        if (!empty($outlet)) {
+            $data = json_decode($outlet, true);
+            if (!empty($data['ops'])) {
+                $html = '<ul>';
+                foreach ($data['ops'] as $op) {
+                    if (!empty($op['insert'])) {
+                        $text = trim($op['insert']);
+                        $attributes = isset($op['attributes']) ? $op['attributes'] : []; // Check if 'attributes' key exists
+                        if (!empty($attributes) && isset($attributes['list']) && $attributes['list'] == 'bullet' && !empty($text)) {
+                            $html .= '<li>' . $text . '</li>';
+                        } elseif (!empty($text)) {
+                            $html .= '<li>' . $text . '</li>';
+                        }
+                    }
+                }
+                $html .= '</ul>';
+            }
+        }
+
       ?>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <input type="hidden" name="job_id" value="<?php echo $id; ?>">
@@ -132,7 +154,7 @@ if (isset($_POST['apply'])) {
         <h2 style="text-transform: uppercase;"> <?php echo $row['project_title']; ?></h2>
 
         <p class="mb-3"><i class="bi bi-buildings"></i> <?php echo $row['client_company_id']; ?> </p>
-        <p class="mb-3"><i class="bi bi-geo-alt"></i> <?php echo $rows['outlet']; ?></p>
+        <p class="mb-3"><i class="bi bi-geo-alt"></i> <?php echo 'OUTLET/S:' . "&nbsp;&nbsp;&nbsp;" . $html; ?></p>
         <p class="mb-3"><i class="bi bi-calendar-date"></i> <?php echo $row['formatted_date']; ?></p>
         <br>
         <hr>
@@ -196,13 +218,6 @@ if (isset($_POST['apply'])) {
             echo '';
           }
           ?>
-          <?php
-          if (!empty($rows['special_requirements_others'])) { ?>
-            <li><?php echo $rows['special_requirements_others']; ?></li>
-          <?php } else {
-            echo '';
-          }
-          ?>
         </ul>
         <br>
           <h5 class="small mb-0" style="font-weight: bold;">REQUIREMENTS</h5>
@@ -217,9 +232,8 @@ if (isset($_POST['apply'])) {
           </ul>
           <br>
         <br>
-          <h5 class="small mb-0" style="font-weight: bold;">SALARY</h5>
-          <p style="color: #000;"> - ₱ <?php echo $rows['basic_salary']; ?></p>
-          <br>
+          <p style="color: #000;"> - There's a great surprise awaiting you. Hurry up!</p>
+        <br>
         <br>
         <br>
         <hr>

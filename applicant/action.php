@@ -3,27 +3,6 @@ session_start();
 include "../database/connection.php";
 include "../body/function.php";
 
-// if ($_SERVER['REQUEST_METHOD'] == "POST") {
-//   $username = clean(mysqli_real_escape_string($con, $_POST['username']));
-//   $password = clean(mysqli_real_escape_string($con, $_POST['password']));
-
-//   $query = "SELECT * FROM applicant WHERE username = '$username'";
-//   $result = mysqli_query($con, $query);
-//   if (mysqli_num_rows($result) > 0) {
-
-//     $row = mysqli_fetch_assoc($result);
-//     $_SESSION['email'] = $row['email_address'];
-//     $_SESSION['password'] = $row['password'];
-//     $hashedPassword = $row['password'];
-
-//     if (password_verify($password, $hashedPassword)) {
-//       echo "success";
-//     } else {
-//       echo "Invalid Email or Password";
-//     }
-//   }
-// }
-
 // Login User
 if (isset($_POST['login'])) {
 
@@ -118,7 +97,7 @@ if (isset($_POST['apply'])) {
   $file_type = mime_content_type($tempname);
 
   // List of allowed MIME types
-  $allowed_types = array('application/pdf');
+  $allowed_types = array('application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 
 
 
@@ -146,7 +125,7 @@ if (isset($_POST['apply'])) {
     $file_type = mime_content_type($tempname);
 
     // List of allowed MIME types
-    $allowed_types = array('application/pdf');
+    $allowed_types = array('application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 
 
     // Check if the applicant has been rejected for the same job before
@@ -172,7 +151,8 @@ if (isset($_POST['apply'])) {
       $months_diff = floor($time_diff / (30 * 24 * 60 * 60));
 
       // check if the applicant is eligible to apply again
-      if ($months_diff < $number_of_months) {
+      // Change if you want to customize the number of months of rejection using this code $number_of_months. But for now, one month muna
+      if ($months_diff < 1) {
         $_SESSION['errorMessage'] = "You are rejected to this job. You can re-apply again after 3 months";
         header("location: job_details.php?jobid=$job_id");
         exit;
@@ -181,7 +161,7 @@ if (isset($_POST['apply'])) {
 
     // Check if the MIME type is in the list of allowed types
     else if (!in_array($file_type, $allowed_types)) {
-      $_SESSION['errorMessage'] = "Please upload PDF file only. For more details, please read our FAQs.";
+      $_SESSION['errorMessage'] = "Please upload PDF and Docx file only.";
       header("location: job_details.php?jobid=$job_id");
       exit;
     }
@@ -194,7 +174,7 @@ if (isset($_POST['apply'])) {
     $result = mysqli_query($con, $query);
     if (mysqli_num_rows($result) > 0) {
       $row = mysqli_fetch_assoc($result);
-      if ($row['job_count'] >= 3) {
+      if ($row['job_count'] >= 100) {
 
         // Show the error message
         $_SESSION['errorMessage'] = "You already applied to 3 different jobs today.";
@@ -218,7 +198,7 @@ if (isset($_POST['apply'])) {
 
 
           $_SESSION['successMessage'] = "File uploaded successfully";
-          header("location: job_details.php?jobid=$job_id");
+          header("location: searchjob.php");
         } else {
 
           $_SESSION['errorMessage'] = "Failed to upload file";

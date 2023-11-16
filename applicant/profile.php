@@ -68,7 +68,7 @@ if (isset($_POST['update'])) {
           move_uploaded_file($fileTempName, $fileDestination);
   
           if (!empty($file)) {
-            $query = "UPDATE hr1_applicant SET image = '$fileName'
+            $query = "UPDATE applicant SET image = '$fileName'
             WHERE id = '$user_id'";
   
             $result = mysqli_query($con, $query);
