@@ -19,6 +19,10 @@ if (isset($_POST['login'])) {
 
     $_SESSION['username'] = $row['username'];
     $_SESSION['password'] = $row['password'];
+    $_SESSION['firstname'] = $row['firstname'];
+    $_SESSION['middlename'] = $row['middlename'];
+    $_SESSION['lastname'] = $row['lastname'];
+    $_SESSION['extension_name'] = $row['extension_name'];
     $hashedPassword = $row['password'];
 
     if (password_verify($password, $hashedPassword)) {
@@ -192,13 +196,21 @@ if (isset($_POST['apply'])) {
           header("location: job_details.php?jobid=$job_id");
         } else if (!empty($filename)) {
 
-          move_uploaded_file($tempname, $folderDestination);
-          $sql = "INSERT INTO applicant_resume(applicant_id, project_id, resume_file) VALUES('$applicant_id', '$job_id', '$filename')";
-          $result = mysqli_query($con, $sql);
+          $applicant_name = $_SESSION['firstname'] . " " . $_SESSION['middlename'] . " " . $_SESSION['lastname'] . " " . $_SESSION['extension_name'];
+          $folder_name = $applicant_name;
+          $destination = "../201 Files/" . $folder_name;
 
+          if (file_exists($destination) && file_exists($filename)) {
+            $_SESSION['errorMessage'] = "Error";
+        } else {
+            mkdir("{$destination}", 0777);
+            move_uploaded_file($tempname, $destination . DIRECTORY_SEPARATOR . $filename);
 
-          $_SESSION['successMessage'] = "File uploaded successfully";
-          header("location: searchjob.php");
+            $sql = "INSERT INTO applicant_resume(applicant_id, project_id, resume_file) VALUES('$applicant_id', '$job_id', '$filename')";
+            $result = mysqli_query($con, $sql);
+            $_SESSION['successMessage'] = "File uploaded successfully";
+        }
+        
         } else {
 
           $_SESSION['errorMessage'] = "Failed to upload file";
@@ -206,5 +218,7 @@ if (isset($_POST['apply'])) {
       }
     }
   }
+  header("location: searchjob.php");
+  exit(0);
 }
 ?>

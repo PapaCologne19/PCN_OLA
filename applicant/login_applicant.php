@@ -16,6 +16,10 @@ if (isset($_POST['login'])) {
 
       $_SESSION['username'] = $row['username'];
       $_SESSION['password'] = $row['password'];
+      $_SESSION['firstname'] = $row['firstname'];
+      $_SESSION['middlename'] = $row['middlename'];
+      $_SESSION['lastname'] = $row['lastname'];
+      $_SESSION['extension_name'] = $row['extension_name'];
       $hashedPassword = $row['password'];
 
       if (password_verify($password, $hashedPassword)) {
