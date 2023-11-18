@@ -28,7 +28,6 @@ $errors = array();
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
 
@@ -41,38 +40,48 @@ $errors = array();
 </head>
 
 <body>
-<?php
-      if (isset($_SESSION['successMessage'])) { ?>
+    <?php
+    if (isset($_SESSION['successMessage'])) { ?>
         <script>
-          Swal.fire({
-            icon: 'success',
-            title: "<?php echo $_SESSION['successMessage']; ?>",
-          })
+            Swal.fire({
+                icon: 'success',
+                title: "<?php echo $_SESSION['successMessage']; ?>",
+            })
         </script>
-      <?php unset($_SESSION['successMessage']);
-      } ?>
+    <?php unset($_SESSION['successMessage']);
+    } ?>
 
-      <?php
-      if (isset($_SESSION['errorMessage'])) { ?>
+    <?php
+    if (isset($_SESSION['errorMessage'])) { ?>
         <script>
-          Swal.fire({
-            icon: 'error',
-            title: "<?php echo $_SESSION['errorMessage']; ?>",
-          })
+            Swal.fire({
+                icon: 'error',
+                title: "<?php echo $_SESSION['errorMessage']; ?>",
+            })
         </script>
-      <?php unset($_SESSION['errorMessage']);
-      }
-      ?>
-  
-          
-    <div class="d-flex justify-content-center py-4" id="error-message"  style="display: none; text-align: center;"></div>
+    <?php unset($_SESSION['errorMessage']);
+    }
+    ?>
+    <script>
+        // Event listener to handle messages from child window
+        window.addEventListener('message', function(event) {
+            // Check if the message is to reload
+            if (event.data === 'reload') {
+                // Reload the parent window
+                location.reload();
+            }
+        });
+    </script>
+
+
+    <div class="d-flex justify-content-center py-4" id="error-message" style="display: none; text-align: center;"></div>
     <div class="d-flex justify-content-center py-4">
         <button type="button" class="btn btn-dark back-btn" onclick="window.history.go(-1)" style="display: none; text-align: center;">Try Again</button>&nbsp;&nbsp;
-        <button type="button" class="btn btn-danger close-btn" style="display: none; text-align: center;">Close</button>  
-     
-    </div>           
+        <button type="button" class="btn btn-danger close-btn" style="display: none; text-align: center;">Close</button>
 
-    
+    </div>
+
+
     <main>
         <div class="container">
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-start py-4">
@@ -93,7 +102,7 @@ $errors = array();
                             <div class="card mb-3" style="border: none;">
 
                                 <div class="card-body" id="card-body" style="background: #fff; color: #000000;">
-                                    <?php   
+                                    <?php
                                     if (isset($_SESSION['message'])) { ?>
                                         <div class="container">
                                             <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert" id="myAlert">
@@ -148,45 +157,45 @@ $errors = array();
                                     </div>
                                     <?php
 
-                                   
-                                        $id = $_GET['job_id'];
-                                        $query = "SELECT  * FROM projects  WHERE id = '$id'";
-                                        if ($result = mysqli_query($con, $query)) {
-                                            $row = mysqli_fetch_assoc($result);
 
-                                            ?>
-                                    <form class="row g-3 needs-validation" novalidate method="post" action="action.php">
-                                    <input type="hidden" name="job_id" value="<?php echo $row['id']; ?>">
-                                        <div class="form-floating mb-7">
-                                            <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username" style="border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important;" required>
-                                            <label for="floatingInput">Username</label>
-                                            <div class="invalid-feedback">
-                                                Please enter a Username
-                                            </div>
-                                        </div>
+                                    $id = $_GET['job_id'];
+                                    $query = "SELECT  * FROM projects  WHERE id = '$id'";
+                                    if ($result = mysqli_query($con, $query)) {
+                                        $row = mysqli_fetch_assoc($result);
 
-                                        <div class="form-floating">
-                                            <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" style="background-color: inherit; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important;" required>
-                                            <label for="floatingPassword">Password</label>
-                                            <div class="invalid-feedback">
-                                                Please enter a Password.
+                                    ?>
+                                        <form class="row g-3 needs-validation" novalidate method="post" action="action.php">
+                                            <input type="hidden" name="job_id" value="<?php echo $row['id']; ?>">
+                                            <div class="form-floating mb-7">
+                                                <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username" style="border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important;" required>
+                                                <label for="floatingInput">Username</label>
+                                                <div class="invalid-feedback">
+                                                    Please enter a Username
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <br>
-                                            <!-- <p class="small mb-0" style="text-align: left !important;"><a href="javascript:void(0)" onclick="openPopup()" style="color: #000;">Forgot Password?</a></p> -->
-                                        </div>
-                                        <div class="col-12">
-                                            <button class="btn w-100" type="submit" name="login" style="background: #57d8cd; color: white; box-shadow: none; border-radius: 1px;">Login</button>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="small mb-0" style="text-align: center !important; color: #000000;"><a href="javascript:void(0)" onclick="openRegisterPopup()" style="color: #57d8cd;">Create an account</a></p>
-                                        </div>
-                                        <br><br>
-                                        <div class="col-12">
-                                            <a href="javascript:void(0)" onclick="location.href = '../job/search_job.php'" class="small mb-0" style="color: #000000; ">Cancel Login</a>
-                                        </div>
-                                    </form>
+
+                                            <div class="form-floating">
+                                                <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" style="background-color: inherit; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important;" required>
+                                                <label for="floatingPassword">Password</label>
+                                                <div class="invalid-feedback">
+                                                    Please enter a Password.
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <br>
+                                                <!-- <p class="small mb-0" style="text-align: left !important;"><a href="javascript:void(0)" onclick="openPopup()" style="color: #000;">Forgot Password?</a></p> -->
+                                            </div>
+                                            <div class="col-12">
+                                                <button class="btn w-100" type="submit" name="login" style="background: #57d8cd; color: white; box-shadow: none; border-radius: 1px;">Login</button>
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="small mb-0" style="text-align: center !important; color: #000000;"><a href="javascript:void(0)" onclick="openRegisterPopup()" style="color: #57d8cd;">Create an account</a></p>
+                                            </div>
+                                            <br><br>
+                                            <div class="col-12">
+                                                <a href="javascript:void(0)" onclick="location.href = '../job/search_job.php'" class="small mb-0" style="color: #000000; ">Cancel Login</a>
+                                            </div>
+                                        </form>
                                     <?php }
                                     ?>
                                 </div>
@@ -198,9 +207,9 @@ $errors = array();
             </section>
         </div>
     </main>
-    
+
     <script>
-       
+
     </script>
 
     <script>
@@ -256,9 +265,3 @@ $errors = array();
 </body>
 
 </html>
-
-
-
-
-
-

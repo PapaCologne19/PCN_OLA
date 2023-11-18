@@ -25,17 +25,24 @@ if (isset($_POST['register'])) {
   $region = mysqli_real_escape_string($con, $_POST["region"]);
   $city = mysqli_real_escape_string($con, $_POST["city"]);
 
-  // Insert the record into the MySQL table
-  $query = "INSERT INTO applicant(source, username, password, firstname, middlename, lastname, extension_name, gender, civil_status, age, mobile_number, email_address, birthday, present_address, city, region)
+  // Check if the username is already exist
+  $check = "SELECT username FROM applicant WHERE username = '$username'";
+  $check_result = $con->query($check);
+  if ($check_result->num_rows === 0) {
+    // Insert the record into the MySQL table
+    $query = "INSERT INTO applicant(source, username, password, firstname, middlename, lastname, extension_name, gender, civil_status, age, mobile_number, email_address, birthday, present_address, city, region)
          VALUES ('$source', '$username', '$hashedPassword', '$firstname', '$middlename', '$lastname', '$extension_name', '$gender', '$civil_status', '$age', '$mobile_number', '$email', '$dob', '$address', '$city', '$region')";
 
-  $results = mysqli_query($con, $query);
+    $results = mysqli_query($con, $query);
 
-  if ($results) {
-    $_SESSION['message'] = "Successful";
-    header("location: login_applicant.php");
+    if ($results) {
+      $_SESSION['message'] = "Successful";
+      header("location: login_applicant.php");
+    } else {
+      $_SESSION['errorMessage'] = "Registration Unsuccessful" . mysqli_error($con);;
+    }
   } else {
-    $_SESSION['errorMessage'] = "Registration Unsuccessful" . mysqli_error($con);;
+    $_SESSION['errorMessage'] = "Username is already exist";
   }
 }
 ?>

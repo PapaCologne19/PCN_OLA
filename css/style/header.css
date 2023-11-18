@@ -248,16 +248,17 @@
   }
 
   #logout2{
-    background: #2fada2;  
-    border-radius: 50px !important;
-    color: #fff !important;
+    border: 1px solid #4285f4;  
+    border-radius: 5px !important;
     font-size: 15px;
-    padding: .6rem;
+    padding: 1rem;
     margin-left: .5rem;
   }
-  #logout2 a{
-    color: #fff !important;
-    text-decoration: none;
+
+  #logout2:hover{
+    background-color: #4285f4;
+    border: 1px solid #4285f4;
+    color: #ffffff;
   }
 
   #profile2{

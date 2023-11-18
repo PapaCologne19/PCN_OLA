@@ -17,6 +17,7 @@ if (isset($_POST['login'])) {
 
     $row = mysqli_fetch_assoc($result);
 
+    $_SESSION['id'] = $row['id'];
     $_SESSION['username'] = $row['username'];
     $_SESSION['password'] = $row['password'];
     $_SESSION['firstname'] = $row['firstname'];
@@ -202,15 +203,24 @@ if (isset($_POST['apply'])) {
 
           if (file_exists($destination) && file_exists($filename)) {
             $_SESSION['errorMessage'] = "Error";
-        } else {
+          } else {
             mkdir("{$destination}", 0777);
-            move_uploaded_file($tempname, $destination . DIRECTORY_SEPARATOR . $filename);
 
-            $sql = "INSERT INTO applicant_resume(applicant_id, project_id, resume_file) VALUES('$applicant_id', '$job_id', '$filename')";
+            $applicant_name_subfolder = "Requirements";
+            $folder_name_subfolder = $applicant_name_subfolder;
+            $destination_subfolder = $destination . "/" . $folder_name_subfolder;
+
+            mkdir("{$destination_subfolder}", 0777);
+
+            $sql = "INSERT INTO applicant_resume(applicant_id, project_id, resume_file, resume_path) VALUES('$applicant_id', '$job_id', '$filename', '$destination_subfolder')";
             $result = mysqli_query($con, $sql);
-            $_SESSION['successMessage'] = "File uploaded successfully";
-        }
-        
+            if ($result) {
+              move_uploaded_file($tempname, $destination_subfolder . DIRECTORY_SEPARATOR . $filename);
+              $_SESSION['successMessage'] = "File uploaded successfully";
+            } else {
+              $_SESSION['errorMessage'] = "Errori";
+            }
+          }
         } else {
 
           $_SESSION['errorMessage'] = "Failed to upload file";
@@ -221,4 +231,207 @@ if (isset($_POST['apply'])) {
   header("location: searchjob.php");
   exit(0);
 }
-?>
+
+if (isset($_POST['submit_files'])) {
+  $files = $_FILES['files'];
+  $project_id = $_POST['project_id'];
+  $applicant_id = $_SESSION['id'];
+  $sss = $con->real_escape_string($_POST['sss']);
+  $philhealth = $con->real_escape_string($_POST['philhealth']);
+  $pagibig = $con->real_escape_string($_POST['pagibig']);
+  $tin = $con->real_escape_string($_POST['tin']);
+  $emergency_contact_person = $con->real_escape_string($_POST['emergency_contact_person']);
+  $emergency_contact_number = $con->real_escape_string($_POST['emergency_contact_number']);
+  $emergency_contact_address = $con->real_escape_string($_POST['emergency_contact_address']);
+  $date_now = date('Y-m-d');
+
+  $select_path = "SELECT resume_path FROM applicant_resume WHERE project_id = '$project_id' AND applicant_id = '$applicant_id'";
+  $select_path_result = $con->query($select_path);
+
+
+  $fetch = "SELECT id FROM employees WHERE app_id = '$applicant_id'";
+  $fetched = $con->query($fetch);
+  $fetched_row = $fetched->fetch_assoc();
+  $employee_id = $fetched_row['id'];
+
+  if(!empty($_POST['sss']) || $_POST['sss'] !== '' || !empty($_POST['philhealth']) || $_POST['philhealth'] !== '' 
+  || !empty($_POST['pagibig']) || $_POST['pagibig'] !== '' || !empty($_POST['tin']) || $_POST['tin'] !== ''){
+    $insert_emp = "UPDATE employees SET sssnum = '$sss', phnum = '$philhealth', pagibignum = '$pagibig', tinnum = '$tin',
+    e_person = '$emergency_contact_person', e_address = '$emergency_contact_address', e_number = '$emergency_contact_address' 
+    WHERE id = '$employee_id' AND app_id = '$applicant_id'";
+    $insert_emp_result = $con->query($insert_emp);
+
+    if ($insert_emp_result) {
+      while ($select_path_row = $select_path_result->fetch_assoc()) {
+        $path = $select_path_row['resume_path'] . "/";
+
+        foreach ($files['tmp_name'] as $key => $tmp_name) {
+          $targetFile = $path . basename($files['name'][$key]);
+          $filename = basename($files['name'][$key]);
+          $insert_file = "INSERT INTO `201files` (`applicant_id`, `project_id`, `requirements_files`, `requirements_files_uploaded`) 
+                            VALUES (?, ?, ?, ?)";
+          $stmt = $con->prepare($insert_file);
+          $stmt->bind_param("ssss", $applicant_id, $project_id, $filename, $date_now);
+          $insert_file_result = $stmt->execute();
+
+          if ($insert_file_result) {
+            move_uploaded_file($tmp_name, $targetFile);
+            $_SESSION['successMessage'] =  "Files uploaded successfully.";
+          } else {
+            $_SESSION['errorMessage'] =  "Files uploaded error.";
+          }
+        }
+      }
+    } else {
+      $_SESSION['errorMessage'] =  "Error";
+    }
+  }
+  elseif (!empty($_POST['sss']) || $_POST['sss'] !== '') {
+    $insert_emp = "UPDATE employees SET sssnum = '$sss', 
+    e_person = '$emergency_contact_person', e_address = '$emergency_contact_address', e_number = '$emergency_contact_address' 
+    WHERE id = '$employee_id' AND app_id = '$applicant_id'";
+    $insert_emp_result = $con->query($insert_emp);
+
+    if ($insert_emp_result) {
+      while ($select_path_row = $select_path_result->fetch_assoc()) {
+        $path = $select_path_row['resume_path'] . "/";
+
+        foreach ($files['tmp_name'] as $key => $tmp_name) {
+          $targetFile = $path . basename($files['name'][$key]);
+          $filename = basename($files['name'][$key]);
+          $insert_file = "INSERT INTO `201files` (`applicant_id`, `project_id`, `requirements_files`, `requirements_files_uploaded`) 
+                            VALUES (?, ?, ?, ?)";
+          $stmt = $con->prepare($insert_file);
+          $stmt->bind_param("ssss", $applicant_id, $project_id, $filename, $date_now);
+          $insert_file_result = $stmt->execute();
+
+          if ($insert_file_result) {
+            move_uploaded_file($tmp_name, $targetFile);
+            $_SESSION['successMessage'] =  "Files uploaded successfully.";
+          } else {
+            $_SESSION['errorMessage'] =  "Files uploaded error.";
+          }
+        }
+      }
+    } else {
+      $_SESSION['errorMessage'] =  "Error";
+    }
+  } elseif (!empty($_POST['philhealth']) || $_POST['philhealth'] !== '') {
+    $insert_emp = "UPDATE employees SET phnum = '$philhealth',
+    e_person = '$emergency_contact_person', e_address = '$emergency_contact_address', e_number = '$emergency_contact_address' 
+    WHERE id = '$employee_id' AND app_id = '$applicant_id'";
+    $insert_emp_result = $con->query($insert_emp);
+
+    if ($insert_emp_result) {
+      while ($select_path_row = $select_path_result->fetch_assoc()) {
+        $path = $select_path_row['resume_path'] . "/";
+
+        foreach ($files['tmp_name'] as $key => $tmp_name) {
+          $targetFile = $path . basename($files['name'][$key]);
+          $filename = basename($files['name'][$key]);
+          $insert_file = "INSERT INTO `201files` (`applicant_id`, `project_id`, `requirements_files`, `requirements_files_uploaded`) 
+                            VALUES (?, ?, ?, ?)";
+          $stmt = $con->prepare($insert_file);
+          $stmt->bind_param("ssss", $applicant_id, $project_id, $filename, $date_now);
+          $insert_file_result = $stmt->execute();
+
+          if ($insert_file_result) {
+            move_uploaded_file($tmp_name, $targetFile);
+            $_SESSION['successMessage'] =  "Files uploaded successfully.";
+          } else {
+            $_SESSION['errorMessage'] =  "Files uploaded error.";
+          }
+        }
+      }
+    } else {
+      $_SESSION['errorMessage'] =  "Error";
+    }
+  } elseif (!empty($_POST['pagibig']) || $_POST['pagibig'] !== '') {
+    $insert_emp = "UPDATE employees SET pagibignum = '$pagibig',
+    e_person = '$emergency_contact_person', e_address = '$emergency_contact_address', e_number = '$emergency_contact_address' 
+    WHERE id = '$employee_id' AND app_id = '$applicant_id'";
+    $insert_emp_result = $con->query($insert_emp);
+
+    if ($insert_emp_result) {
+      while ($select_path_row = $select_path_result->fetch_assoc()) {
+        $path = $select_path_row['resume_path'] . "/";
+
+        foreach ($files['tmp_name'] as $key => $tmp_name) {
+          $targetFile = $path . basename($files['name'][$key]);
+          $filename = basename($files['name'][$key]);
+          $insert_file = "INSERT INTO `201files` (`applicant_id`, `project_id`, `requirements_files`, `requirements_files_uploaded`) 
+                            VALUES (?, ?, ?, ?)";
+          $stmt = $con->prepare($insert_file);
+          $stmt->bind_param("ssss", $applicant_id, $project_id, $filename, $date_now);
+          $insert_file_result = $stmt->execute();
+
+          if ($insert_file_result) {
+            move_uploaded_file($tmp_name, $targetFile);
+            $_SESSION['successMessage'] =  "Files uploaded successfully.";
+          } else {
+            $_SESSION['errorMessage'] =  "Files uploaded error.";
+          }
+        }
+      }
+    } else {
+      $_SESSION['errorMessage'] =  "Error";
+    }
+  } elseif (!empty($_POST['tin']) || $_POST['tin'] !== '') {
+    $insert_emp = "UPDATE employees SET tinnum = '$tin',
+    e_person = '$emergency_contact_person', e_address = '$emergency_contact_address', e_number = '$emergency_contact_address' 
+    WHERE id = '$employee_id' AND app_id = '$applicant_id'";
+    $insert_emp_result = $con->query($insert_emp);
+
+    if ($insert_emp_result) {
+      while ($select_path_row = $select_path_result->fetch_assoc()) {
+        $path = $select_path_row['resume_path'] . "/";
+
+        foreach ($files['tmp_name'] as $key => $tmp_name) {
+          $targetFile = $path . basename($files['name'][$key]);
+          $filename = basename($files['name'][$key]);
+          $insert_file = "INSERT INTO `201files` (`applicant_id`, `project_id`, `requirements_files`, `requirements_files_uploaded`) 
+                            VALUES (?, ?, ?, ?)";
+          $stmt = $con->prepare($insert_file);
+          $stmt->bind_param("ssss", $applicant_id, $project_id, $filename, $date_now);
+          $insert_file_result = $stmt->execute();
+
+          if ($insert_file_result) {
+            move_uploaded_file($tmp_name, $targetFile);
+            $_SESSION['successMessage'] =  "Files uploaded successfully.";
+          } else {
+            $_SESSION['errorMessage'] =  "Files uploaded error.";
+          }
+        }
+      }
+    } else {
+      $_SESSION['errorMessage'] =  "Error";
+    }
+  } 
+  
+  else {
+    while ($select_path_row = $select_path_result->fetch_assoc()) {
+      $path = $select_path_row['resume_path'] . "/";
+
+      foreach ($files['tmp_name'] as $key => $tmp_name) {
+        $targetFile = $path . basename($files['name'][$key]);
+        $filename = basename($files['name'][$key]);
+        $insert_file = "INSERT INTO `201files` (`applicant_id`, `project_id`, `requirements_files`, `requirements_files_uploaded`) 
+                            VALUES (?, ?, ?, ?)";
+        $stmt = $con->prepare($insert_file);
+        $stmt->bind_param("ssss", $applicant_id, $project_id, $filename, $date_now);
+        $insert_file_result = $stmt->execute();
+
+        if ($insert_file_result) {
+          move_uploaded_file($tmp_name, $targetFile);
+          $_SESSION['successMessage'] =  "Files uploaded successfully.";
+        } else {
+          $_SESSION['errorMessage'] =  "Files uploaded error.";
+        }
+      }
+    }
+  }
+
+
+  header("Location: profile.php");
+  exit(0);
+}

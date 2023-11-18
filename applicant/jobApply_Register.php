@@ -24,17 +24,38 @@ if (isset($_POST['register'])) {
   $region = mysqli_real_escape_string($con, $_POST["region"]);
   $city = mysqli_real_escape_string($con, $_POST["city"]);
 
-  // Insert the record into the MySQL table
-  $query = "INSERT INTO applicant(source, username, password, firstname, middlename, lastname, extension_name, gender, civil_status, age, mobile_number, email_address, birthday, present_address, city, region)
+  // Check if the username is already exist
+  $check = "SELECT username FROM applicant WHERE username = '$username'";
+  $check_result = $con->query($check);
+  if ($check_result->num_rows === 0) {
+
+    // Insert the record into the MySQL table
+    $query = "INSERT INTO applicant(source, username, password, firstname, middlename, lastname, extension_name, gender, civil_status, age, mobile_number, email_address, birthday, present_address, city, region)
          VALUES ('$source', '$username', '$hashedPassword', '$firstname', '$middlename', '$lastname', '$extension_name', '$gender', '$civil_status', '$age', '$mobile_number', '$email', '$dob', '$address', '$city', '$region')";
 
-  $results = mysqli_query($con, $query);
+    $results = mysqli_query($con, $query);
 
-  if ($results) {
-    $_SESSION['message'] = "Successful";
-    echo '<script type="text/javascript">window.close();</script>';
+    if ($results) {
+      $_SESSION['successMessage'] = "Success";
+      echo '
+    <script>
+        Swal.fire({
+            title: "Success!",
+            text: "Registration successful",
+            icon: "success"
+        });
+
+        // Close the child window
+        window.close();
+
+        // Inform the opener (parent) window to reload
+        window.opener.postMessage("reload", "*");
+    </script>';
+    } else {
+      $_SESSION['errorMessage'] = "Registration Unsuccessful" . mysqli_error($con);
+    }
   } else {
-    $_SESSION['errorMessage'] = "Registration Unsuccessful" . mysqli_error($con);;
+    $_SESSION['errorMessage'] = "Username already exist.";
   }
 }
 
@@ -97,6 +118,28 @@ if (isset($_POST['register'])) {
 </head>
 
 <body>
+  <?php
+  if (isset($_SESSION['successMessage'])) { ?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: "<?php echo $_SESSION['successMessage']; ?>",
+      })
+    </script>
+  <?php unset($_SESSION['successMessage']);
+  } ?>
+
+  <?php
+  if (isset($_SESSION['errorMessage'])) { ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: "<?php echo $_SESSION['errorMessage']; ?>",
+      })
+    </script>
+  <?php unset($_SESSION['errorMessage']);
+  }
+  ?>
   <main>
     <div class="row justify-content-right" style="width: 100vh;"></div>
     <img src="../img/Enter OTP-cuate.svg" width="40%" class="rounded" alt="..." id="bg">
@@ -110,10 +153,10 @@ if (isset($_POST['register'])) {
         ?>
           <script>
             Swal.fire({
-            icon: 'error',
-            title: 'Engk...',
-            text: "<?php echo $showerror?>",
-          })
+              icon: 'error',
+              title: 'Engk...',
+              text: "<?php echo $showerror ?>",
+            })
           </script>
         <?php
         }
@@ -442,21 +485,21 @@ if (isset($_POST['register'])) {
       placeholder: "Select a date", // Set the text for the placeholder
     });
   </script>
-  
 
-   <!-- Vendor JS Files -->
-   <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/vendor/chart.js/chart.min.js"></script>
-    <script src="../assets/vendor/echarts/echarts.min.js"></script>
-    <script src="../assets/vendor/quill/quill.min.js"></script>
-    <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="../ssets/vendor/php-email-form/validate.js"></script>
-  
-    <!-- Template Main JS File --> 
-    <script src="../assets/js/main.js"></script>
-    <?php include '../body/footer.php';?>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/chart.js/chart.min.js"></script>
+  <script src="../assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../assets/vendor/quill/quill.min.js"></script>
+  <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../ssets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+  <?php include '../body/footer.php'; ?>
 
 
 </body>
