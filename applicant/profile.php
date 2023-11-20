@@ -1,6 +1,5 @@
 <?php
 include "../database/connection.php";
-include "../body/function.php";
 session_start();
 
 if (isset($_POST['save'])) {
@@ -8,23 +7,16 @@ if (isset($_POST['save'])) {
   $firstname = mysqli_real_escape_string($con, $_POST['firstName']);
   $middlename = mysqli_real_escape_string($con, $_POST['middleName']);
   $lastname = mysqli_real_escape_string($con, $_POST['lastName']);
-  $street = mysqli_real_escape_string($con, $_POST['street']);
-  $barangay = mysqli_real_escape_string($con, $_POST['barangay']);
+  $street = mysqli_real_escape_string($con, $_POST['Address']);
   $city = mysqli_real_escape_string($con, $_POST['city']);
   $state = mysqli_real_escape_string($con, $_POST['state']);
-  $zip = mysqli_real_escape_string($con, $_POST['zip']);
   $phone = mysqli_real_escape_string($con, $_POST['phone']);
   $email = mysqli_real_escape_string($con, $_POST['email']);
 
-  if (
-    !empty($firstname) && !empty($middlename) && !empty($lastname)
-    && !empty($street) && !empty($barangay) && !empty($city)
-    && !empty($state) && !empty($zip) && !empty($phone) && !empty($email)
-  ) {
 
-    $query = "UPDATE hr1_applicant 
+    $query = "UPDATE applicant 
         SET firstname = '$firstname', middlename = '$middlename', lastname = '$lastname', 
-        street = '$street', barangay = '$barangay', city = '$city', state = '$state', zip_code = '$zip',
+        present_address = '$street', city = '$city', region = '$state',
         mobile_number = '$phone', email_address = '$email'
         WHERE id = '$user_id'";
 
@@ -33,9 +25,6 @@ if (isset($_POST['save'])) {
     } else {
       $errors['error'] = "Update Unsuccessful!";
     }
-  } else {
-    $errors['error'] = "Please insert the data to update!";
-  }
 }
 
 
@@ -294,6 +283,10 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-requirements">201 Files</button>
                   </li>
 
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-loa">LOA</button>
+                  </li>
+
                 </ul>
                 <div class="tab-content pt-2">
 
@@ -419,7 +412,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                   <div class="row mb-3">
                     <label for="Address" class="col-md-4 col-lg-3 col-form-label">Present Address</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="barangay" type="text" class="form-control" id="Address" value="<?php echo $row['present_address']; ?>" required>
+                      <input type="text" name="Address" class="form-control" id="Address" value="<?php echo $row['present_address']; ?>" required>
                     </div>
                   </div>
                   <div class="row mb-3">
@@ -564,22 +557,27 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                                 <div class="modal-body">
                                   <div class="container">
                                     <form action="action.php" method="post" enctype="multipart/form-data" class="form-group needs-validation">
+                                      <?php 
+                                        $fetch = "SELECT * FROM employees WHERE app_id = '" . $_SESSION['id'] . "'";
+                                        $fetched = $con->query($fetch);
+                                        $fetched_row = $fetched->fetch_assoc();
+                                      ?>
                                       <input type="hidden" name="project_id" value="<?php echo $select_file_row['project_id'] ?>">
                                       <div class="col-md-12">
                                         <label for="" class="form-label">SSS Number</label>
-                                        <input type="text" name="sss" id="sss" maxlength="10" minlength="10" class="form-control">
+                                        <input type="text" name="sss" id="sss" maxlength="10" minlength="10" class="form-control" value="<?php echo $fetched_row['sssnum']?>">
                                       </div>
                                       <div class="col-md-12">
                                         <label for="" class="form-label">Philhealth Number</label>
-                                        <input type="text" name="philhealth" id="philhealth" maxlength="12" minlength="12" class="form-control">
+                                        <input type="text" name="philhealth" id="philhealth" maxlength="12" minlength="12" class="form-control" value="<?php echo $fetched_row['phnum']?>">
                                       </div>
                                       <div class="col-md-12">
                                         <label for="" class="form-label">PagIBIG Number</label>
-                                        <input type="text" name="pagibig" id="pagibig" maxlength="12" minlength="12" class="form-control">
+                                        <input type="text" name="pagibig" id="pagibig" maxlength="12" minlength="12" class="form-control" value="<?php echo $fetched_row['pagibignum']?>">
                                       </div>
                                       <div class="col-md-12">
                                         <label for="" class="form-label">TIN Number</label>
-                                        <input type="text" name="tin" id="tin" maxlength="12" minlength="12" class="form-control">
+                                        <input type="text" name="tin" id="tin" maxlength="12" minlength="12" class="form-control" value="<?php echo $fetched_row['tinnum']?>">
                                       </div>
                                       <hr class="mt-3 mb-3">
                                       <div class="col-md-12">
@@ -619,6 +617,11 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                     </tbody>
                   </table>
                 </div>
+
+                <div class="tab-pane fade show profile-loa" id="profile-loa">
+                  la
+                </div>
+
 
 
 

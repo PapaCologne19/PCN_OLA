@@ -191,8 +191,14 @@
                 ?>
 
              </li>
-             <li><?php echo ucwords(strtolower($rows['work_experience'])); ?></li>
-             <li><?php echo ucwords(strtolower($rows['edu'])) ?></li>
+              <?php if(!empty($rows['work_experience'])) {?>
+                <li><?php echo ucwords(strtolower($rows['work_experience'])) ?></li>
+              <?php } else {?>
+              <?php }?>
+              <?php if(!empty($rows['edu'])) {?>
+                <li><?php echo ucwords(strtolower($rows['edu'])) ?></li>
+              <?php } else {?>
+              <?php }?>
              <?php
               if (!empty($rows['pleasing_personality'])) { ?>
                <li><?php echo ucwords(strtolower($rows['pleasing_personality'])); ?></li>

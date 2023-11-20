@@ -44,7 +44,7 @@
       <div class=" d-flex justify-content-end py-4" id="icons" style="width: 100%;">
 
         <div class="dropdown col-md-4">
-          <i class="bi bi-bell" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 22px; position: relative; left: 150px;" title="Notifications" onclick="clearNotifications()">
+          <i class="bi bi-bell" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 22px; position: relative; left: 150px; color: #000000 important;" title="Notifications" onclick="clearNotifications()">
             <span class="badge rounded-pill bg-danger" id="number_of_notification" style="position: absolute; margin-left: -.8rem; font-style: normal !important; font-size: 11px !important;"></span>
           </i>
 
