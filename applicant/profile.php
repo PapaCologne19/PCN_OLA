@@ -14,17 +14,17 @@ if (isset($_POST['save'])) {
   $email = mysqli_real_escape_string($con, $_POST['email']);
 
 
-    $query = "UPDATE applicant 
+  $query = "UPDATE applicant 
         SET firstname = '$firstname', middlename = '$middlename', lastname = '$lastname', 
         present_address = '$street', city = '$city', region = '$state',
         mobile_number = '$phone', email_address = '$email'
         WHERE id = '$user_id'";
 
-    if ($results = mysqli_query($con, $query)) {
-      header("location: profile.php");
-    } else {
-      $errors['error'] = "Update Unsuccessful!";
-    }
+  if ($results = mysqli_query($con, $query)) {
+    header("location: profile.php");
+  } else {
+    $errors['error'] = "Update Unsuccessful!";
+  }
 }
 
 
@@ -557,27 +557,27 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                                 <div class="modal-body">
                                   <div class="container">
                                     <form action="action.php" method="post" enctype="multipart/form-data" class="form-group needs-validation">
-                                      <?php 
-                                        $fetch = "SELECT * FROM employees WHERE app_id = '" . $_SESSION['id'] . "'";
-                                        $fetched = $con->query($fetch);
-                                        $fetched_row = $fetched->fetch_assoc();
+                                      <?php
+                                      $fetch = "SELECT * FROM employees WHERE app_id = '" . $_SESSION['id'] . "'";
+                                      $fetched = $con->query($fetch);
+                                      $fetched_row = $fetched->fetch_assoc();
                                       ?>
                                       <input type="hidden" name="project_id" value="<?php echo $select_file_row['project_id'] ?>">
                                       <div class="col-md-12">
                                         <label for="" class="form-label">SSS Number</label>
-                                        <input type="text" name="sss" id="sss" maxlength="10" minlength="10" class="form-control" value="<?php echo $fetched_row['sssnum']?>">
+                                        <input type="text" name="sss" id="sss" maxlength="10" minlength="10" class="form-control" value="<?php echo $fetched_row['sssnum'] ?>">
                                       </div>
                                       <div class="col-md-12">
                                         <label for="" class="form-label">Philhealth Number</label>
-                                        <input type="text" name="philhealth" id="philhealth" maxlength="12" minlength="12" class="form-control" value="<?php echo $fetched_row['phnum']?>">
+                                        <input type="text" name="philhealth" id="philhealth" maxlength="12" minlength="12" class="form-control" value="<?php echo $fetched_row['phnum'] ?>">
                                       </div>
                                       <div class="col-md-12">
                                         <label for="" class="form-label">PagIBIG Number</label>
-                                        <input type="text" name="pagibig" id="pagibig" maxlength="12" minlength="12" class="form-control" value="<?php echo $fetched_row['pagibignum']?>">
+                                        <input type="text" name="pagibig" id="pagibig" maxlength="12" minlength="12" class="form-control" value="<?php echo $fetched_row['pagibignum'] ?>">
                                       </div>
                                       <div class="col-md-12">
                                         <label for="" class="form-label">TIN Number</label>
-                                        <input type="text" name="tin" id="tin" maxlength="12" minlength="12" class="form-control" value="<?php echo $fetched_row['tinnum']?>">
+                                        <input type="text" name="tin" id="tin" maxlength="12" minlength="12" class="form-control" value="<?php echo $fetched_row['tinnum'] ?>">
                                       </div>
                                       <hr class="mt-3 mb-3">
                                       <div class="col-md-12">
@@ -619,7 +619,49 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                 </div>
 
                 <div class="tab-pane fade show profile-loa" id="profile-loa">
-                  la
+                  <div class="container">
+                    <table class="table table-sm" id="example">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Project</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Employment Status</th>
+                          <th>Remarks</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $get_deployment = "SELECT * FROM deployment WHERE app_id = '" . $_SESSION['id'] . "'";
+                        $get_deployment_result = $con->query($get_deployment);
+
+                        while ($get_deployment_row = $get_deployment_result->fetch_assoc()) {
+                        ?>
+                          <tr>
+                            <td style="font-size: 13px;"><?php echo $get_deployment_row['date_created'] ?></td>
+                            <td style="font-size: 13px;"><?php echo $get_deployment_row['shortlist_title'] ?></td>
+                            <td style="font-size: 13px;"><?php echo $get_deployment_row['loa_start_date'] ?></td>
+                            <td style="font-size: 13px;"><?php echo $get_deployment_row['loa_end_date'] ?></td>
+                            <td style="font-size: 13px;"><?php echo $get_deployment_row['employment_status'] ?></td>
+                            <td style="font-size: 13px;"><?php echo $get_deployment_row['signed_loa'] ?></td>
+                            <td style="font-size: 13px;">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Download LOA"><i class="bi bi-box-arrow-down text-white"></i></button>
+                                </div>
+                                <div class="col-md-4">
+                                  <button type="button" class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-title="Upload Signed LOA"><i class="bi bi-file-earmark-arrow-up text-white"></i></button>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        <?php
+                        } ?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
 
 
@@ -721,15 +763,6 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
               }
             }
           }
-
-          // specialChar=false;
-          // for(var i=0; i<val.length;i++){
-          //     for(var j=0; j<specialChars.length; j++){
-          //         if(val[i]==specialChars[j]){
-          //             specialChar = true;
-          //         }
-          //     }
-          // }
 
           console.log(leng, bigLetter, num, specialChar);
 

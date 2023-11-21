@@ -6,23 +6,23 @@ session_start();
 $errors = array();
 
 if (isset($_POST['register'])) {
-  $source = mysqli_real_escape_string($con, $_POST["source"]);
+  $source = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["source"])))));
   $username = mysqli_real_escape_string($con, $_POST["username"]);
   $password = mysqli_real_escape_string($con, $_POST["password"]);
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-  $firstname = mysqli_real_escape_string($con, $_POST["firstname"]);
-  $middlename = mysqli_real_escape_string($con, $_POST["middlename"]);
-  $lastname = mysqli_real_escape_string($con, $_POST["lastname"]);
-  $extension_name = mysqli_real_escape_string($con, $_POST["extension_name"]);
-  $gender = mysqli_real_escape_string($con, $_POST["gender"]);
-  $civil_status = mysqli_real_escape_string($con, $_POST["civil_status"]);
-  $age = mysqli_real_escape_string($con, $_POST["age"]);
-  $mobile_number = mysqli_real_escape_string($con, $_POST["mobile_number"]);
-  $email = mysqli_real_escape_string($con, $_POST["email"]);
-  $dob = mysqli_real_escape_string($con, $_POST["dob"]);
-  $address = mysqli_real_escape_string($con, $_POST["address"]);
-  $region = mysqli_real_escape_string($con, $_POST["region"]);
-  $city = mysqli_real_escape_string($con, $_POST["city"]);
+  $firstname = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["firstname"])))));
+  $middlename = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["middlename"])))));
+  $lastname = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["lastname"])))));
+  $extension_name = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["extension_name"])))));
+  $gender = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["gender"])))));
+  $civil_status = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["civil_status"])))));
+  $age = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["age"])))));
+  $mobile_number = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["mobile_number"])))));
+  $email = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["email"])))));
+  $dob = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["dob"])))));
+  $address = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["address"])))));
+  $region = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["region"])))));
+  $city = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["city"])))));
 
   // Check if the username is already exist
   $check = "SELECT username FROM applicant WHERE username = '$username'";

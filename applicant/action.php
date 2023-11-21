@@ -197,7 +197,7 @@ if (isset($_POST['apply'])) {
           header("location: job_details.php?jobid=$job_id");
         } else if (!empty($filename)) {
 
-          $applicant_name = $_SESSION['firstname'] . " " . $_SESSION['middlename'] . " " . $_SESSION['lastname'] . " " . $_SESSION['extension_name'];
+          $applicant_name = chop($_SESSION['firstname'] . " " . $_SESSION['middlename'] . " " . $_SESSION['lastname'] . " " . $_SESSION['extension_name']);
           $folder_name = $applicant_name;
           $destination = "../201 Files/" . $folder_name;
 
@@ -209,10 +209,12 @@ if (isset($_POST['apply'])) {
             $applicant_name_subfolder = "Requirements";
             $folder_name_subfolder = $applicant_name_subfolder;
             $destination_subfolder = $destination . "/" . $folder_name_subfolder;
+            $folder_path =  "201 Files/" . $folder_name;
 
             mkdir("{$destination_subfolder}", 0777);
 
-            $sql = "INSERT INTO applicant_resume(applicant_id, project_id, resume_file, resume_path) VALUES('$applicant_id', '$job_id', '$filename', '$destination_subfolder')";
+            $sql = "INSERT INTO applicant_resume(applicant_id, project_id, resume_file, resume_path) 
+            VALUES('$applicant_id', '$job_id', '$filename', '$folder_path')";
             $result = mysqli_query($con, $sql);
             if ($result) {
               move_uploaded_file($tempname, $destination_subfolder . DIRECTORY_SEPARATOR . $filename);
