@@ -220,7 +220,7 @@ if (isset($_POST['apply'])) {
               move_uploaded_file($tempname, $destination_subfolder . DIRECTORY_SEPARATOR . $filename);
               $_SESSION['successMessage'] = "File uploaded successfully";
             } else {
-              $_SESSION['errorMessage'] = "Errori";
+              $_SESSION['errorMessage'] = "Error";
             }
           }
         } else {
