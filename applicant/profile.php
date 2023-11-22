@@ -185,6 +185,14 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
       .good .fa-times {
         display: none;
       }
+
+      .contain {
+        display: grid;
+        grid-template-columns: 0fr 0fr;
+        grid-template-rows: 0fr 0fr;
+        gap: 5px;
+        margin: 0 auto;
+      }
     </style>
   </head>
 
@@ -634,7 +642,11 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                       </thead>
                       <tbody>
                         <?php
-                        $get_deployment = "SELECT * FROM deployment WHERE app_id = '" . $_SESSION['id'] . "'";
+                        $get_deployment = "SELECT *, 
+                        DATE_FORMAT(date_created, '%M %d, %Y') AS date_created, 
+                        DATE_FORMAT(loa_start_date, '%M %d, %Y') AS loa_start_date, 
+                        DATE_FORMAT(loa_end_date, '%M %d, %Y') AS loa_end_date
+                        FROM deployment WHERE app_id = '" . $_SESSION['id'] . "'";
                         $get_deployment_result = $con->query($get_deployment);
 
                         while ($get_deployment_row = $get_deployment_result->fetch_assoc()) {
@@ -645,22 +657,61 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                             <td style="font-size: 13px;"><?php echo $get_deployment_row['loa_start_date'] ?></td>
                             <td style="font-size: 13px;"><?php echo $get_deployment_row['loa_end_date'] ?></td>
                             <td style="font-size: 13px;"><?php echo $get_deployment_row['employment_status'] ?></td>
-                            <td style="font-size: 13px;"><?php echo $get_deployment_row['signed_loa'] ?></td>
                             <td style="font-size: 13px;">
-                              <div class="row">
-                                <div class="col-md-4">
-                                  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Download LOA"><i class="bi bi-box-arrow-down text-white"></i></button>
+                              <?php echo $get_deployment_row['signed_loa_status'] ?></td>
+                            <td style="font-size: 13px;">
+                              <div class="contain">
+                                <div class="columns">
+                                  <a href="download_loa.php?id=<?php echo $get_deployment_row['employee_id']; ?>" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Download LOA"><i class="bi bi-box-arrow-down text-white"></i></a>
                                 </div>
-                                <div class="col-md-4">
-                                  <button type="button" class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-title="Upload Signed LOA"><i class="bi bi-file-earmark-arrow-up text-white"></i></button>
+                                <div class="columns">
+                                  <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#uploadSignedLOAModal-<?php echo $get_deployment_row['id'] ?>" title="Upload Signed LOA"><i class="bi bi-file-earmark-arrow-up text-white"></i></button>
                                 </div>
                               </div>
                             </td>
                           </tr>
+
+                          <!-- Modal for Uploading Signed LOA -->
+                          <div class="modal fade" id="uploadSignedLOAModal-<?php echo $get_deployment_row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <form action="action.php" method="post" class="row" enctype="multipart/form-data">
+                                      <input type="hidden" name="deployment_id" id="deployment_id" value="<?php echo $get_deployment_row['id'] ?>">
+                                      <div class="col-md-12">
+                                        <label for="" class="form-label">Attach File</label>
+                                        <input type="file" name="signed_loa" id="signed_loa" class="form-control" required>
+                                      </div>
+                                      <div class="col-md-12 mt-5">
+                                        <button type="submit" class="btn btn-primary" name="signed_loa_button">Upload</button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+
                         <?php
                         } ?>
                       </tbody>
                     </table>
+
+
+
+
+
                   </div>
                 </div>
 

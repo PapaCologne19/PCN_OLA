@@ -437,3 +437,51 @@ if (isset($_POST['submit_files'])) {
   header("Location: profile.php");
   exit(0);
 }
+
+// For Returning Signed LOA File
+if(isset($_POST['signed_loa_button'])){
+  $deployment_id = $con->real_escape_string($_POST['deployment_id']);
+  $file = $_FILES['signed_loa'];
+  $filename = $_FILES["signed_loa"]["name"];
+  $tempname = $_FILES["signed_loa"]["tmp_name"];
+  $signed_loa_status = "SUBMITTED";
+
+  $select = "SELECT deployment.*, employee.*, resumes.*
+  FROM deployment deployment, employees employee, applicant_resume resumes
+  WHERE deployment.employee_id = employee.id
+  AND deployment.app_id = resumes.applicant_id
+  AND deployment.id = '$deployment_id'";
+  $select_result = $con->query($select);
+  $select_row = $select_result->fetch_assoc();
+
+
+  $start_loa = $select_row['loa_start_date'];
+  $end_loa = $select_row['loa_end_date'];
+  $start_loa_date = new DateTime($start_loa);
+  $start_loa_formatted = $start_loa_date->format('F j, Y');
+  $end_loa_date = new DateTime($end_loa);
+  $end_loa_formatted = $end_loa_date->format('F j, Y');
+
+  $applicant_name = chop($select_row['firstnameko'] . " " . $select_row['mnko'] . " " . $select_row['lastnameko'] . " " . $select_row['extnname']);
+  $folder_path = $select_row['resume_path'];
+  $folder_name = $applicant_name;
+  $applicant_name_subfolder = $applicant_name . "- From " . $start_loa_formatted . " To " . $end_loa_formatted;
+  $folder_name_subfolder = $applicant_name_subfolder;
+  $destination_subfolder = "../" . $folder_path . "/" . $folder_name_subfolder. "/";
+
+
+  if(!empty($filename)){
+    $insert_loa = "UPDATE deployment SET signed_loa_file = ?, signed_loa_status = ? WHERE id = ?";
+    $stmt = $con->prepare($insert_loa);
+    $stmt->bind_param("sss", $filename, $signed_loa_status, $deployment_id);
+    if($stmt->execute()){
+      move_uploaded_file($tempname, $destination_subfolder . $filename);
+      $_SESSION['successMessage'] = "Success";
+    }
+    else{
+      $_SESSION['errorMessage'] = "Error";
+    }
+  }
+  header("Location: profile.php");
+  exit(0);
+}
