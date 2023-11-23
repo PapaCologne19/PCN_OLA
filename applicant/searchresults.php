@@ -79,7 +79,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
 
   <div class="body">
     <div class="container">
-      <button type="button" class="btn" onclick="location.href = 'search_job.php';" style="background: #57d8cd; color: #fff; border: none; box-shadow: none;">Search Again</button>
+      <button type="button" class="btn" onclick="location.href = 'searchjob.php';" style="background: #57d8cd; color: #fff; border: none; box-shadow: none;">Search Again</button>
       <div class="row" style="margin: 5rem;">
         <span>JOB OPENINGS</span>
         <hr>

@@ -8,6 +8,7 @@ $errors = array();
 
 if (isset($_POST['register'])) {
   $source = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["source"])))));
+  $referred_by = mysqli_real_escape_string($con, chop(preg_replace('/\s+/', ' ', (strtoupper($_POST["referred_by"])))));
   $username = mysqli_real_escape_string($con, $_POST["username"]);
   $password = mysqli_real_escape_string($con, $_POST["password"]);
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -30,16 +31,16 @@ if (isset($_POST['register'])) {
   $check_result = $con->query($check);
   if ($check_result->num_rows === 0) {
     // Insert the record into the MySQL table
-    $query = "INSERT INTO applicant(source, username, password, firstname, middlename, lastname, extension_name, gender, civil_status, age, mobile_number, email_address, birthday, present_address, city, region)
-         VALUES ('$source', '$username', '$hashedPassword', '$firstname', '$middlename', '$lastname', '$extension_name', '$gender', '$civil_status', '$age', '$mobile_number', '$email', '$dob', '$address', '$city', '$region')";
+    $query = "INSERT INTO applicant(source, referred_by, username, password, firstname, middlename, lastname, extension_name, gender, civil_status, age, mobile_number, email_address, birthday, present_address, city, region)
+         VALUES ('$source', '$referred_by', '$username', '$hashedPassword', '$firstname', '$middlename', '$lastname', '$extension_name', '$gender', '$civil_status', '$age', '$mobile_number', '$email', '$dob', '$address', '$city', '$region')";
 
     $results = mysqli_query($con, $query);
 
     if ($results) {
-      $_SESSION['message'] = "Successful";
+      $_SESSION['message'] = "Success";
       header("location: login_applicant.php");
     } else {
-      $_SESSION['errorMessage'] = "Registration Unsuccessful" . mysqli_error($con);;
+      $_SESSION['errorMessage'] = "Registration Error" . mysqli_error($con);
     }
   } else {
     $_SESSION['errorMessage'] = "Username is already exist";
@@ -153,8 +154,8 @@ if (isset($_POST['register'])) {
                   </div>
 
                   <form class="row g-3 needs-validation" novalidate method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                    <div class="form-floating col-sm-6 col-md-6 col-lg-6">
-                      <select name="source" id="source" class="form-select" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
+                    <div class="form-floating col-sm-12 col-md-12 col-lg-6">
+                      <select name="source" id="source" onchange="showSources()" class="form-select" style="background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;" required>
                         <option value=""></option>
                         <option value="REFERRAL">REFERRAL</option>
                         <option value="NON REFERRAL">NON REFERRAL</option>
@@ -162,6 +163,14 @@ if (isset($_POST['register'])) {
                       <label for="source" style="color: #000">Source</label>
                       <div class="invalid-feedback">
                         Please input Source.
+                      </div>
+                    </div>
+
+                    <div class="form-floating col-sm-12 col-md-12 col-lg-6">
+                      <input type="text" name="referred_by" id="referred_by" class="form-control" style="display: none; background-color: inherit; border-top: none; border-left: none; border-right: none; box-shadow: none !important; border-color: #000 !important;">
+                      <label for="" class="form-label" id="name-label" style="display: none;">Referred By</label>
+                      <div class="invalid-feedback">
+                        Please input Referred By
                       </div>
                     </div>
 
@@ -324,6 +333,23 @@ if (isset($_POST['register'])) {
   </main>
 
   <script>
+    function showSources(){
+      var source = document.getElementById("source");
+      var referred_by = document.getElementById('referred_by');
+      var name_label = document.getElementById('name-label');
+
+      if(source.options[source.selectedIndex].text === 'REFERRAL'){
+        referred_by.style.display = 'block';
+        name_label.style.display = 'block';
+        referred_by.required = true;
+      } else {
+        referred_by.style.display = 'none';
+        name_label.style.display = 'none';
+        referred_by.required = false;
+      }
+    }
+
+
     $(function() {
       var $password = $(".form-control[type='password']");
       var $passwordAlert = $(".password-alert");
