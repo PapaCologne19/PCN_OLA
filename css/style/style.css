@@ -52,17 +52,16 @@ html, body{
   font-size: 6rem;
   font-family: 'Jamesphilip Bold', sans-serif;
   font-weight: 800;
-  color: #2fada2 !important;
+  color: #0079FF !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important; 
-  background-image: linear-gradient(to right, #1d8a81,#1d8a81) !important;
+  background-image: linear-gradient(to right, #0079FF,#0079FF) !important;
 }
 
 .text h6{
   font-size: 19px;
-  font-family: "Jamesphilip Light",Sans-serif;
-  font-weight: 500;
+  font-family: "Inter", Sans-serif;
 
 }
 
@@ -99,12 +98,12 @@ html, body{
   width: 100vw;
   margin-top: 10rem;
   margin-left: 13rem;
-  font-family: 'Jamesphilip Light', sans-serif;
+  font-family: 'Inter', sans-serif;
 } 
 
 .about-text h1{
   font-size: 5rem;
-  font-family: 'Jamesphilip Light', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   color: #121212 !important;
   background-clip: text !important;
@@ -297,41 +296,41 @@ html, body{
 
 #home-button{
   background: none;
-  border: 1px solid #000 !important;
+  border: 1px solid #0079FF !important;
   border-radius: 20px 2px;
   padding: 16px 33px;
   width: 10rem;
   transition: .6s ease-in-out;
   cursor: pointer;
   border-color: #fff;
-  font-family: 'Jamesphilip Bold', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
  }
 
  #home-button:hover{
-  background: #2fada2;
-  border: 1px solid #2fada2 !important;
+  background: #0079FF;
+  border: 1px solid #0079FF !important;
   color: #fff !important;
   transition: .6s ease-in-out;
 }
 
 #button{
   background: none;
-  border: 1px solid #000 !important;
+  border: 1px solid #0079FF !important;
   border-radius: 20px 2px;
   padding: 1rem;
   width: 10rem;
   transition: .6s ease-in-out;
   cursor: pointer;
-  font-family: 'poppins', sans-serif;
-  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
 }
 
 #button:hover{
-  background: #2fada2;
-  border: 1px solid #2fada2 !important;
+  background: #0079FF;
+  border: 1px solid #0079FF !important;
   color: #fff !important;
   transition: .6s ease-in-out;
 }
@@ -386,7 +385,7 @@ html, body{
 }
 
 .description h3{
-  font-family: 'Jamesphilip Light', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 25px;
   font-weight: 500;
   color: darkgray;
@@ -397,13 +396,14 @@ html, body{
   font-size: 58px;
   font-weight: 600;
   letter-spacing: 0.2rem;
-  color: #2fada2 !important;
+  color: #0079FF !important;
 }
 
 .description p{
-  font-family: 'Jamesphilip Light',Sans-serif;
+  font-family: 'Inter',Sans-serif;
   font-size: 17px;
   margin-right: 10rem;
+  text-align: justify !important;
   text-indent: 2rem;
   font-weight: 500;
 }
@@ -423,8 +423,7 @@ html, body{
 }
 
 .contact_info h3{
-  color: #FFF;
-  font-family: "Jamesphilip Light",Sans-serif;
+  font-family: "Inter",Sans-serif;
   font-size: 25px;
   font-weight: 500;
 }

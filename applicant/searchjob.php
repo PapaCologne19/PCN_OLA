@@ -167,7 +167,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
       <div class="col-lg-3 col-md-6 col-sm-12">
         <?php if ($row['status'] === "1") { ?>
           <div class="card-content" style="display: none;">
-            <div class="card" style="width: 100%; height: 400px;">
+            <div class="card" style="width: 100%; height: 300px;">
               <a href="job_details.php?jobid=<?php echo $row['id']; ?>" style="text-decoration: none;">
                 <div class="card-body">
                   <img width="30%" alt="Company Logo" style="box-sizing: border-box;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>

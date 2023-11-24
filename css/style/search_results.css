@@ -125,8 +125,7 @@ html, body{
     justify-content: left;
     padding: 1rem;
     backdrop-filter: blurd(10px) !important;
-	box-shadow: 5px 10px 20px rgba(0,0,0,.3) !important;
-    /* box-shadow: 0 5px 25px rgb(1 1 1 / 20%); */
+	box-shadow: 5px 5px 5px rgba(0,0,0,.3) !important;
 }
 
 .card:hover{

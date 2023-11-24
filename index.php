@@ -83,7 +83,7 @@
 
         <div class="text">
           <h1>Build your <br> Bright future <br> right now</h1><br>
-          <h6>Start your journey here. Find a job that is suitable to you. <br> We offer a variety of job opportunities for job seekers of all experience levels.</h6>
+          <h6>Begin your journey here. Explore job opportunities that suit you. We offer a variety of positions for job seekers at all experience levels.</h6>
           <br><br>
 
           <ul>
@@ -117,7 +117,8 @@
         <div class="description">
           <h3>Who Are We?</h3>
           <h1>About Us</h1>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta vel eligendi pariatur esse voluptatum, corporis dolorem aliquam commodi recusandae vitae fuga quaerat necessitatibus corrupti exercitationem, quae quasi laboriosam! Iure, necessitatibus? Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> Nostrum, fugiat sed perferendis aliquid dolore animi fugit dolores nihil vel, maxime totam reprehenderit incidunt sint! Adipisci natus beatae sint quasi ipsam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit neque deserunt similique consequatur explicabo modi totam impedit ea pariatur. Doloribus repudiandae laborum illo beatae aliquid eveniet recusandae fuga natus vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi praesentium iure quam harum ad itaque iste odit, reiciendis voluptatum eveniet, rerum explicabo consectetur temporibus possimus libero aliquid in quas sequi?Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia dolore quaerat excepturi qui sequi optio, eum sunt placeat enim voluptate nobis asperiores nostrum deleniti quibusdam accusamus neque aliquam esse rerum? </p>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta vel eligendi pariatur esse voluptatum, corporis dolorem aliquam commodi recusandae vitae fuga quaerat necessitatibus corrupti exercitationem, quae quasi laboriosam! Iure, necessitatibus? Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+          <p>Nostrum, fugiat sed perferendis aliquid dolore animi fugit dolores nihil vel, maxime totam reprehenderit incidunt sint! Adipisci natus beatae sint quasi ipsam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit neque deserunt similique consequatur explicabo modi totam impedit ea pariatur. Doloribus repudiandae laborum illo beatae aliquid eveniet recusandae fuga natus vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi praesentium iure quam harum ad itaque iste odit, reiciendis voluptatum eveniet, rerum explicabo consectetur temporibus possimus libero aliquid in quas sequi?Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia dolore quaerat excepturi qui sequi optio, eum sunt placeat enim voluptate nobis asperiores nostrum deleniti quibusdam accusamus neque aliquam esse rerum?</p>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique minima error iure excepturi commodi! Dolorem voluptates nostrum corrupti voluptas impedit debitis reprehenderit magnam distinctio accusamus. Deserunt dolor officia voluptatem iste? Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni exercitationem, impedit quaerat repellat sint vel voluptates mollitia alias perspiciatis id tenetur? Minima amet tempora sed, consequatur obcaecati corrupti deleniti <cumque class="lorem"></cumque>
           </p>
           <br>
