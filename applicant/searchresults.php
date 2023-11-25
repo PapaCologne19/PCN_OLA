@@ -79,7 +79,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
 
   <div class="body">
     <div class="container">
-      <button type="button" class="btn" onclick="location.href = 'searchjob.php';" style="background: #57d8cd; color: #fff; border: none; box-shadow: none;">Search Again</button>
+    <button type="button" class="btn" onclick="location.href = 'searchjob.php';" style="background: #279EFF; padding: .8rem 1rem; color: #fff; border-radius: 5px; box-shadow: none;">Search Again</button>
       <div class="row" style="margin: 5rem;">
         <span>JOB OPENINGS</span>
         <hr>
@@ -104,7 +104,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
           $select = "SELECT * FROM mrf WHERE tracking = '$tracking'";
           $select_result = $con->query($select);
           while($select_row = $select_result->fetch_assoc()){
-            $image = '../assets/img/pcn.png';
+            $image = '../img/pcn.png';
             $diff = $row['diff'];
             if ($diff < 60) { 
               $time_ago = $diff . " seconds ago";
@@ -129,7 +129,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                     <div class="card-body" style="background: none !important;">
                       <img width="30%" alt="Company Logo" style="box-sizing: border-box;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
                       <p class="card-title" style="text-align: left !important;"><?php echo $row['project_title']; ?></p>
-                      <p><?php echo $row['client_company_id']; ?></p>
+                      <p style="font-family: 'Roboto', sans-serif;"><?php echo $row['client_company_id']; ?></p>
                       <p>Posted on <?php echo $time_ago; ?></p>
                     </div>
                   </a>

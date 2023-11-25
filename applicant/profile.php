@@ -205,7 +205,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
 
     <div class="header">
       <div class="container">
-        <h1 style="font-family: 'Jamesphilip Bold', sans-serif; color: #2fada2; font-weight: 800;">MY PROFILE</h1>
+        <h1 style="font-family: 'Poppins', sans-serif; color: #279EFF; font-weight: 500;">MY PROFILE</h1>
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="../applicant/searchjob.php" style="color: #000;">Search Jobs</a></li>
@@ -351,13 +351,13 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                                 <input type="hidden" value="<?php echo $row['id']; ?>" name="user_id">
                                 <div class="col-auto">
                                   <label for="email" class="form-label" style="color: #000;">Please select image</label>
-                                  <input type="file" class="form-control" name="file" id="file" style="color: #000; box-shadow: none; border-color: #06bbac;" required>
+                                  <input type="file" class="form-control" name="file" id="file" style="color: #000; box-shadow: none; border-color: #279EFF;" required>
                                   <div class="invalid-feedback">
                                     Please insert an image.
                                   </div>
                                 </div>
                                 <br>
-                                <button type="submit" name="update" class="btn" style="background: #06bbac; color: #fff; border: none;">Update</button>
+                                <button type="submit" name="update" class="btn" style="background: #279EFF; color: #fff; border: none;">Update</button>
                               </form>
                           <?php }
                           } ?>
@@ -387,8 +387,8 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                             <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                             <div class="col-md-8 col-lg-9">
                               <img alt="Profile Picture" class="img-circle" style="border-radius: 50%;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <div class="pt-2">
-                              <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-upload"></i></a>
-                              <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                              <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-upload text-white"></i></a>
+                              <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash text-white"></i></a>
                             </div>
                           </div>
                   </div>
@@ -451,7 +451,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                   </div>
 
                   <div class="text-center">
-                    <button type="submit" name="save" class="btn" style="background: #57d8cd; color: #fff;">Save Changes</button>
+                    <button type="submit" name="save" class="btn" style="background: #279EFF; color: #fff;">Save Changes</button>
                   </div>
                   </form>
               <?php }
@@ -506,7 +506,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                       </script>
 
                       <div class="text-center pt-5">
-                        <button type="submit" name="changepass" class="btn" style="background: #57d8cd; color: #fff;">Save Changes</button>
+                        <button type="submit" name="changepass" class="btn" style="background: #279EFF; color: #fff;">Save Changes</button>
                       </div>
                     </form><!-- End Change Password Form -->
                   <?php } ?>

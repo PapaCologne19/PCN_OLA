@@ -131,7 +131,7 @@
 
             $row = mysqli_fetch_assoc($result);
             $_SESSION['job_details'] = $row;
-            $image = '../assets/img/pcn.png';
+            $image = '../img/pcn.png';
 
 
 
@@ -165,14 +165,14 @@
                 }
             }
           ?>
-           <button type="button" name="apply" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background: #57d8cd; color: #fff; border: none; box-shadow: none; float: right;">Apply Now</button>
+           <button type="button" name="apply" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background: #279EFF; color: #fff; border: none; box-shadow: none; float: right;">Apply Now</button>
 
            <img alt="" class="img-responsive" width="100vw" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
-           <h2 style="text-transform: uppercase;"> <?php echo $row['project_title']; ?></h2>
+           <h2 style="text-transform: uppercase; color: #279EFF;"> <?php echo $row['project_title']; ?></h2>
 
-           <p class="mb-3"><i class="bi bi-buildings"></i> <?php echo $row['client_company_id']; ?> </p>
-           <p class="mb-3"><i class="bi bi-geo-alt"></i> <?php echo 'OUTLET/S:' . "&nbsp;&nbsp;&nbsp;" . $html; ?></p>
-           <p class="mb-3"><i class="bi bi-calendar-date"></i> <?php echo $row['formatted_date']; ?></p>
+          <p class="mb-3"><i class="bi bi-buildings"></i> <?php echo $row['client_company_id']; ?> </p>
+          <p class="mb-3"><i class="bi bi-geo-alt"></i> <?php echo 'OUTLET/S:' . "&nbsp;&nbsp;&nbsp;" . $html; ?></p>
+          <p class="mb-3"> DATE NEEDED:   <?php echo $row['formatted_date']; ?></p>
            <br>
            <hr>
            <h5 class="small mb-0" style="font-weight: bold;">JOB QUALIFICATIONS</h5>
@@ -285,20 +285,20 @@
                      <input type="hidden" class="form-control" name="applicant_id" id="applicant_id" value="<?php echo $fetch['id']; ?>">
                      <div class="col-auto">
                        <label for="email" class="form-label" style="color: #000;">Please upload your resume (Docx and PDF only)</label>
-                       <input type="file" class="form-control" name="file" id="file" style="color: #000; box-shadow: none; border-color: #57d8cd;" required>
+                       <input type="file" class="form-control" name="file" id="file" style="color: #000; box-shadow: none; border-color: #279EFF;" required>
                        <div class="invalid-feedback">
                          Please upload your Resume/CV.
                        </div>
                      </div>
                      <br>
-                     <button type="submit" name="apply" class="btn" style="background: #57d8cd; color: #fff; border: none;">Upload</button>
+                     <button type="submit" name="apply" class="btn" style="background: #279EFF; color: #fff; border: none; box-shadow: none;">Upload</button>
                      <?php
                       ?>
                    </form>
 
                  </div>
                  <div class="modal-footer">
-                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #121212 !important;">Close</button>
+                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
                  </div>
                </div>
              </div>

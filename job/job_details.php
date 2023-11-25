@@ -111,7 +111,7 @@ if (isset($_POST['apply'])) {
 
         $row = mysqli_fetch_assoc($result);
         $_SESSION['job_details'] = $row;
-        $image = '../assets/img/pcn.png';
+        $image = '../img/pcn.png';
 
 
 
@@ -143,19 +143,19 @@ if (isset($_POST['apply'])) {
                 }
                 $html .= '</ul>';
             }
-        }
+        } 
 
       ?>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
           <input type="hidden" name="job_id" value="<?php echo $id; ?>">
-          <button type="submit" name="apply" class="btn btn-primary" style="background: #57d8cd; color: #fff; border: none; box-shadow: none; float: right;">Apply Now</button>
+          <button type="submit" name="apply" class="btn btn-primary" style="background: #279EFF; color: #fff; border: none; box-shadow: none; float: right;">Apply Now</button>
         </form>
         <img alt="" class="img-responsive" width="100vw" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
-        <h2 style="text-transform: uppercase;"> <?php echo $row['project_title']; ?></h2>
+        <h2 style="text-transform: uppercase; color: #279EFF;"> <?php echo $row['project_title']; ?></h2>
 
         <p class="mb-3"><i class="bi bi-buildings"></i> <?php echo $row['client_company_id']; ?> </p>
         <p class="mb-3"><i class="bi bi-geo-alt"></i> <?php echo 'OUTLET/S:' . "&nbsp;&nbsp;&nbsp;" . $html; ?></p>
-        <p class="mb-3"><i class="bi bi-calendar-date"></i> <?php echo $row['formatted_date']; ?></p>
+        <p class="mb-3"> DATE NEEDED:   <?php echo $row['formatted_date']; ?></p>
         <br>
         <hr>
         <h5 class="small mb-0" style="font-weight: bold;">JOB QUALIFICATIONS</h5>

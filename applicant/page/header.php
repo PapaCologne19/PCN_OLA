@@ -22,7 +22,7 @@
     <div class="nav">
       <div class="d-flex justify-content-start" id="logo" style="width: 100%;">
         <a href="../index.php" class="logo d-flex align-items-center w-auto mx-3" style="box-shadow: none;">
-          <img src="../assets/img/pcn.png" alt="HR Logo" width="20%">
+          <img src="../img/pcn.png" alt="HR Logo" width="20%">
         </a>
       </div>
 
@@ -33,11 +33,11 @@
         </label>
 
         <ul class="menu">
-          <li><button class="btn"><a href="searchjob.php">HOME</a></button></li>
-          <li><button class="btn"><a href="about.php">ABOUT</a></button></li>
-          <li><button class="btn"><a href="contact.php">CONTACT</a></button></li>
-          <li><button class="btn" id="profile"><a href="#">PROFILE</a></button></li>
-          <li><button class="btn" id="logout" onclick="location.href = '../body/logout.php'">LOGOUT</button></li>
+          <li><button class="btn" onclick="location.href = 'searchjob.php'">HOME</button></li>
+          <li><button class="btn" onclick="location.href = 'about.php'">ABOUT</button></li>
+          <li><button class="btn" onclick="location.href = 'contact.php'">CONTACT</button></li>
+          <!-- <li><button class="btn" id="profile">PROFILE</button></li> -->
+          <!-- <li><button class="btn" id="logout" onclick="location.href = '../body/logout.php'">LOGOUT</button></li> -->
         </ul>
       </div>
 
@@ -61,14 +61,8 @@
           </ul>
         </div>
         <div class="icons">
-
-
-
-          <a href="profile.php" id="profile2">PROFILE</a>
-
-
+          <button class="btn" onclick="location.href='profile.php'" id="profile2">PROFILE</button>
           <button class="btn btn-default" id="logout2" onclick="location.href = '../body/logout.php'">LOGOUT</button>
-
         </div>
       </div>
     </div>

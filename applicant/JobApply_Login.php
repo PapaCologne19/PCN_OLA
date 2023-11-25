@@ -90,8 +90,8 @@ $errors = array();
 
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex justify-content-center py-4" id="logo">
-                                <a href="../index.php" class="logo d-flex align-items-center w-auto">
-                                    <img src="../assets/img/pcn.png" alt="HR Logo" width="30%">
+                                <a href="../index.php" class="logo d-flex align-items-center w-auto justify-content-center">
+                                    <img src="../img/pcn.png" alt="HR Logo" width="30%">
                                 </a>
                             </div>
                             <!-- End Logo -->
@@ -152,7 +152,7 @@ $errors = array();
                                     <?php unset($_SESSION['werror']);
                                     } ?>
                                     <div class="pt-4 pb-2">
-                                        <h2 class="card-title text-center " style="color: #2fada2; font-family: 'Inter', sans-serif; font-weight: 800;">LOGIN TO YOUR ACCOUNT</h2>
+                                        <h2 class="card-title text-center " style="color: #279EFF ; font-family: 'Poppins', sans-serif !important; font-weight: 600;">LOGIN TO YOUR ACCOUNT</h2>
                                         <br>
                                     </div>
                                     <?php
@@ -167,16 +167,16 @@ $errors = array();
                                         <form class="row g-3 needs-validation" novalidate method="post" action="action.php">
                                             <input type="hidden" name="job_id" value="<?php echo $row['id']; ?>">
                                             <div class="form-floating mb-7">
-                                                <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username" style="border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important;" required>
-                                                <label for="floatingInput">Username</label>
+                                                <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username" style="border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important; font-family: 'Poppins', sans-serif;" required>
+                                                <label for="floatingInput" style="font-family: 'Poppins', sans-serif !important;">Username</label>
                                                 <div class="invalid-feedback">
                                                     Please enter a Username
                                                 </div>
                                             </div>
 
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" style="background-color: inherit; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important;" required>
-                                                <label for="floatingPassword">Password</label>
+                                                <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" style="background-color: inherit; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important; font-family: 'Poppins', sans-serif !important;" required>
+                                                <label for="floatingPassword" style="font-family: 'Poppins', sans-serif !important;">Password</label>
                                                 <div class="invalid-feedback">
                                                     Please enter a Password.
                                                 </div>
@@ -186,10 +186,10 @@ $errors = array();
                                                 <!-- <p class="small mb-0" style="text-align: left !important;"><a href="javascript:void(0)" onclick="openPopup()" style="color: #000;">Forgot Password?</a></p> -->
                                             </div>
                                             <div class="col-12">
-                                                <button class="btn w-100" type="submit" name="login" style="background: #57d8cd; color: white; box-shadow: none; border-radius: 1px;">Login</button>
+                                                <button class="btn w-100 login_button" type="submit" name="login" style="border:1px solid #279EFF; box-shadow: none; border-radius: 10px; padding: .5rem; font-size: 1.2rem !important;">Login</button>
                                             </div>
                                             <div class="col-12">
-                                                <p class="small mb-0" style="text-align: center !important; color: #000000;"><a href="javascript:void(0)" onclick="openRegisterPopup()" style="color: #57d8cd;">Create an account</a></p>
+                                                <p class="small mb-0" style="text-align: center !important; color: #000000;"><a href="javascript:void(0)" onclick="openRegisterPopup()" style="color: #0079FF;">Create an account</a></p>
                                             </div>
                                             <br><br>
                                             <div class="col-12">

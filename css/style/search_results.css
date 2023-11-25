@@ -9,7 +9,6 @@
     box-sizing: border-box;
     color: #000;
     font-family: 'Inter', sans-serif;
-    font-weight: 600;
 }
 
 html, body{
@@ -129,7 +128,7 @@ html, body{
 }
 
 .card:hover{
-    border-bottom: 2px solid #2fada2 !important;
+    border-bottom: 2px solid #279EFF !important;
     transition: .2s ease-out;
 }
 
@@ -139,21 +138,22 @@ html, body{
 }
 
 .card-title{
-    color: #2fada2;
     text-transform: uppercase;
-    font-weight: bolder;
+    font-size: 20px !important;
+    font-weight: 500;
     font-family: 'Roboto', sans-serif;
     text-align: left;
+    color: #279EFF;
 }
 
 .page-link{
-    color: #2fada2 !important;
+    color: #279EFF !important;
     box-shadow: none !important;
 }
 
 .page-link:hover{
-    background: #2fada2 !important;
-    border: 1px solid #2fada2 !important;
+    background: #279EFF !important;
+    border: 1px solid #279EFF !important;
     color: white !important;
 }
 

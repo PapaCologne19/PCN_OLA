@@ -58,7 +58,7 @@
 </head>
 
 <body id="about">
-    <?php include 'loader.php';
+    <?php 
     include 'header.php';
     ?>
 
@@ -76,7 +76,7 @@
 
             <div class="home-image">
                 <div class="row justify-content-end" style="width: 100vh;"></div>
-                <img src="../img/Marketing consulting-cuate.svg" width="40%" class="rounded" alt="..." id="img">
+                <img src="../img/Thinking%20face-cuate.svg" width="40%" class="rounded" alt="..." id="img">
             </div>
 
         </div>
@@ -213,10 +213,7 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2" id="footer_links">
                     <div class="d-flex justify-content-start py-4" id="logo">
-                        <a href="../index.php" class="logo d-flex align-items-center w-auto">
-                            <img src="../img/hrlogo.png" alt="HR Logo" width="28%">
-                            <span class="d-lg-block small mb-0" style="font-family: 'Poiret One', cursive !important; color: #fff !important; font-weight: 500;">JOB<b id="animated-text"> PORTAL</b></span>
-                        </a>
+                        
                     </div>
                 </div>
 
@@ -275,7 +272,7 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="footer_links">
                     <div class="footer_credit small mb-0" style="text-align: center;">
-                        <p style="color: #ADADAD !important;">Copyright &copy; 2023. All rights Reserved. <br>Developed by <a href="https://www.facebook.com/Jpgomera19/" target="_blank" style="color: #fff !important;">James Philip Gomera</a></p>
+                        <p style="color: #ADADAD !important; font-family: 'Inter', san-serif !important;">Copyright &copy; 2023. All rights Reserved.</p>
                     </div>
                 </div>
             </div>

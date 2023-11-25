@@ -50,13 +50,13 @@ html, body{
 
 .text h1{
   font-size: 6rem;
-  font-family: 'Jamesphilip Bold', sans-serif;
-  font-weight: 800;
-  color: #0079FF !important;
+  font-family: 'poppins', sans-serif;
+  /* font-weight: 600; */
+  color: #279EFF !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important; 
-  background-image: linear-gradient(to right, #0079FF,#0079FF) !important;
+  background-image: linear-gradient(to right, #279EFF,#279EFF) !important;
 }
 
 .text h6{
@@ -103,14 +103,13 @@ html, body{
 
 .about-text h1{
   font-size: 5rem;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
+  font-family: 'Jamesphilip Bold', sans-serif;
+  font-weight: 600;
   color: #121212 !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important; 
-  /* background-image: linear-gradient(to right, #5a4be2,#b41313) !important; */
-  background-image: linear-gradient(to right, #1d8a81,#1d8a81) !important;
+  background-image: linear-gradient(to right, #279EFF,#279EFF) !important;
 }
 
 .about-text p{
@@ -138,12 +137,10 @@ html, body{
   font-size: 5rem;
   font-family: 'Jamesphilip Bold', sans-serif;
   font-weight: 700;
-  color: #121212 !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important; 
-  /* background-image: linear-gradient(to right, #5a4be2,#b41313) !important; */
-  background-image: linear-gradient(to right, #1d8a81,#1d8a81) !important;
+  background-image: linear-gradient(to right, #279EFF,#279EFF) !important;
 }
 
 .faq-title .accordion{
@@ -156,11 +153,11 @@ html, body{
 }
 
 .faq-title .accordion-button{
-  font-family: 'Jamesphilip Bold', sans-serif;
-  font-size: 22px;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
   padding-right: 1rem;
   font-weight: 500;
-  width: 70vw !important; 
+  width: 50vw !important; 
 }
 
 .faq-title .accordion-button:hover{
@@ -169,7 +166,7 @@ html, body{
 
 .faq-title .accordion-body{
   font-size: 16px;
-  font-family: 'Jamesphilip Bold', sans-serif;
+  font-family: 'Inter', sans-serif;
   width: 70vw !important; 
 }
 
@@ -194,19 +191,17 @@ html, body{
   font-size: 4rem;
   font-family: 'Jamesphilip Bold', sans-serif;
   font-weight: 700;
-  color: #121212 !important;
   background-clip: text !important;
   text-align: center !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important; 
-  /* background-image: linear-gradient(to right, #5a4be2,#b41313) !important; */
-  background-image: linear-gradient(to right, #1d8a81,#1d8a81) !important;
+  background-image: linear-gradient(to right, #279EFF,#279EFF) !important;
 }
 
 .tc-title p{
   font-size: 15px;
   margin: 0 12rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   text-align: justify;
   text-indent: 3rem;
 }
@@ -241,12 +236,10 @@ html, body{
   font-size: 5rem;
   font-family: 'Jamesphilip Bold', sans-serif;
   font-weight: 700;
-  color: #121212 !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important; 
-  /* background-image: linear-gradient(to right, #5a4be2,#b41313) !important; */
-  background-image: linear-gradient(to right, #1d8a81,#1d8a81) !important;
+  -webkit-text-fill-color: transparent !important;
+  background-image: linear-gradient(to right, #279EFF,#279EFF) !important;
 }
 
 .contact-form{
@@ -275,6 +268,7 @@ html, body{
   border: 1px solid #000;
   padding: 20px;
   box-shadow: none !important;
+  font-family: 'Inter', sans-serif !important;
 }
 
 .contact-form .form-control:focus{
@@ -288,9 +282,9 @@ html, body{
 }
 
 .contact-form .btn:hover{
-  background: #2fada2;
+  background: #0079FF;
   color: #fff !important;
-  border: 1px solid #2fada2;
+  border: 1px solid #0079FF;
   transition: .4s ease-in-out;
 }
 
@@ -298,14 +292,14 @@ html, body{
   background: none;
   border: 1px solid #0079FF !important;
   border-radius: 20px 2px;
-  padding: 16px 33px;
+  padding: 1.3rem 2.5rem;
   width: 10rem;
   transition: .6s ease-in-out;
   cursor: pointer;
   border-color: #fff;
   font-family: 'Inter', sans-serif !important;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
   text-decoration: none;
  }
 
@@ -325,7 +319,7 @@ html, body{
   transition: .6s ease-in-out;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 #button:hover{
@@ -419,7 +413,7 @@ html, body{
   font-size: 58px;
   font-weight: 600;
   line-height: 1em;
-  color: #2fada2 !important;
+  color: #0079FF !important;
 }
 
 .contact_info h3{
@@ -447,6 +441,8 @@ html, body{
   letter-spacing: .7px;
   font-size: 17px;
   margin-left: 6rem;
+  margin-top: -4.5rem;
+  padding: 1rem;
 }
 
 .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text {
@@ -462,7 +458,7 @@ html, body{
 }
 
 #icons2{
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .footer-body{
@@ -471,7 +467,7 @@ html, body{
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: #000000;
+  background: #272829;
 }
 
 .footer-body .row{
@@ -503,20 +499,19 @@ html, body{
   list-style: none;
   text-align: center;
   color: #FFF !important;
-  font-family: 'Jamesphilip Bold', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
 }
 
 #footer_links ul span{
   font-size: 20px;
   color: #FFFFFF61 !important;
-  font-family: 'Jamesphilip Bold', sans-serif !important;
-  font-weight: 400;
+  font-family: 'Inter', sans-serif !important;
 }
 
 #footer_links ul li a{
   color: #fff !important;
-  font-family: 'Jamesphilip Bold', sans-serif !important;
-  font-weight: 400  ;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400;
   padding-top: 1rem;
   text-align: start;
 }

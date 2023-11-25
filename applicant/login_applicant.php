@@ -108,7 +108,7 @@ if (isset($_POST['login'])) {
 
   <main>
     <div class="row justify-content-left" style="width: 50vh;"></div>
-    <img src="../img/Mobile login-cuate.svg" width="50%" class="rounded" alt="..." id="bg">
+    <img src="../img/Secure login-pana.svg" width="50%" class="rounded" alt="..." id="bg">
     </div>
 
     <div class="container">
@@ -119,8 +119,8 @@ if (isset($_POST['login'])) {
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4" id="logo">
-                <a href="../index.php" class="logo d-flex align-items-center w-auto">
-                  <img src="../assets/img/pcn.png" alt="HR Logo" width="30%">
+                <a href="../index.php" class="logo d-flex justify-content-center align-items-center w-auto">
+                  <img src="../img/pcn.png" alt="HR Logo" width="30%">
                 </a>
               </div>
               <!-- End Logo -->
@@ -129,15 +129,15 @@ if (isset($_POST['login'])) {
                 <div class="card-body" id="card-body" style="background: #fff; color: #000000;">
 
                   <div class="pt-4 pb-2">
-                    <h2 class="card-title text-center " style="color: #1d8a81; font-family: 'Inter', sans-serif; font-weight: 800;">LOGIN TO YOUR ACCOUNT</h2>
+                    <h2 class="card-title text-center " style="color: #279EFF; font-family: 'Poppins', sans-serif !important; font-weight: 600;">LOGIN TO YOUR ACCOUNT</h2>
                     <br>
                   </div>
 
                   <form class="row g-3 needs-validation" novalidate method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
                     <div class="form-floating mb-7">
-                      <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username" style="border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important;" required>
-                      <label for="floatingInput">Username</label>
+                      <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username" style="border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important; font-family: 'Poppins', sans-serif !important;" required>
+                      <label for="floatingInput" style="font-family: 'Poppins', sans-serif !important;">Username</label>
                       <div class="invalid-feedback">
                         Please enter a Username.
                       </div>
@@ -146,7 +146,7 @@ if (isset($_POST['login'])) {
                     <div class="form-floating">
                       <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" style="background-color: inherit; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #000 !important; box-shadow: none !important;" required>
                       <label for="floatingPassword">Password</label>
-                      <div class="invalid-feedback">
+                      <div class="invalid-feedback" style="font-family: 'Poppins', sans-serif !important;">
                         Please enter a Password.
                       </div>
                     </div>
@@ -155,10 +155,10 @@ if (isset($_POST['login'])) {
                       <!-- <p class="small mb-0" style="text-align: left !important;"><a href="forgot_applicant.php" style="color: #000;">Forgot Password?</a></p> -->
                     </div>
                     <div class="col-12">
-                      <button class="btn w-100" type="submit" name="login" style="background: #57d8cd; color: white; box-shadow: none; border-radius: 1px;">Login</button>
+                      <button class="btn w-100 login_button" type="submit" name="login" style="border:1px solid #279EFF; box-shadow: none; border-radius: 10px; padding: .5rem; font-size: 1.2rem !important;">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0" style="text-align: center !important; color: #000000;"><a href="register_applicant.php" style="color: #57d8cd;">Create an account</a></p>
+                      <p class="small mb-0" style="text-align: center !important; color: #000000;"><a href="register_applicant.php" style="color: #0079FF;">Don't have account?</a></p>
                     </div>
                     <br><br>
                     <div class="col-12">

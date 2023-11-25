@@ -143,7 +143,7 @@ if (isset($_POST['register'])) {
   ?>
   <main>
     <div class="row justify-content-right" style="width: 100vh;"></div>
-    <img src="../img/Enter OTP-cuate.svg" width="40%" class="rounded" alt="..." id="bg">
+    <img src="../img/Fingerprint-cuate.svg" width="40%" class="rounded" alt="..." id="bg">
     </div>
     <div class="container">
       <?php
@@ -172,8 +172,8 @@ if (isset($_POST['register'])) {
             <div class="col-lg-7 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4" id="logo">
-                <a href="../index.php" class="logo d-flex align-items-center w-auto">
-                  <img src="../assets/img/pcn.png" alt="HR Logo" width="30%">
+                <a href="../index.php" class="logo d-flex align-items-center w-auto justify-content-center">
+                  <img src="../img/pcn.png" alt="HR Logo" width="30%">
                 </a>
               </div><!-- End Logo -->
 
@@ -182,7 +182,7 @@ if (isset($_POST['register'])) {
 
                 <div class="card-body" id="card-body" style="background: #fff; color: #000;">
                   <div class="pt-4 pb-2">
-                    <h2 class="card-title text-center " style="color: #1d8a81; font-weight: 800;">REGISTER AN ACCOUNT</h2>
+                    <h2 class="card-title text-center " style="color: #279EFF; font-family: 'Poppins', sans-serif; font-weight: 600;">REGISTER AN ACCOUNT</h2>
                     <br>
                   </div>
 
@@ -343,11 +343,11 @@ if (isset($_POST['register'])) {
 
                     <div class="col-12">
                       <br><br>
-                      <p class="small mb-0" style="color: #000;">By continuing, you acknowledge that you accept Job Portal's <a href="register_applicant.html" style="color: #57d8cd; ">Privacy Policies</a> and <a href="" style="color: #57d8cd;">Terms & Conditions</a></p>
+                      <p class="small mb-0" style="color: #000;">By continuing, you acknowledge that you accept Job Portal's <a href="register_applicant.html" style="color: #0079FF; ">Privacy Policies</a> and <a href="" style="color: #0079FF;">Terms & Conditions</a></p>
                     </div>
 
                     <div class="col-12">
-                      <button class="btn w-100" type="submit" id="register" name="register" style="background: #57d8cd; color: white; box-shadow: none;">Register</button>
+                      <button class="btn w-100" type="submit" id="register" name="register" style="background: #279EFF; color: white; box-shadow: none;">Register</button>
                       <br><br>
                       <a href="../applicant/login_applicant.php" class="small mb-0" style="color: #000; ">Cancel Registration</a>
                     </div>

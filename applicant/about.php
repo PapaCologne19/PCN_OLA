@@ -18,7 +18,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
     <meta charset="UTF-8">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="../img/hrlogo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../img/pcn.png" type="image/x-icon">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -67,7 +67,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
 </head>
 
 <body id="about">
-    <?php include '../body/loader.php';
+    <?php 
     include 'page/header.php';
     ?>
 
@@ -85,7 +85,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
 
             <div class="home-image"> 
                 <div class="row justify-content-end" style="width: 100vh;"></div>
-                <img src="../img/Marketing consulting-cuate.svg" width="40%" class="rounded" alt="..." id="img">
+                <img src="../img/Thinking%20face-cuate.svg" width="40%" class="rounded" alt="..." id="img">
             </div>
 
         </div>

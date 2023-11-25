@@ -14,7 +14,7 @@
     <div class="nav">
       <div class="d-flex justify-content-start" id="logo" style="width: 100%;">
         <a href="../index.php" class="logo d-flex align-items-center mx-3 w-auto" style="box-shadow: none;">
-          <img src="../assets/img/pcn.png" alt="HR Logo" width="20%">
+          <img src="../img/pcn.png" alt="HR Logo" width="20%">
         </a>
       </div>
 
@@ -26,13 +26,13 @@
 
 
         <ul class="menu">
-          <li><button class="btn"><a class="active" href="../index.php">HOME</a></button></li>
-          <li><button class="btn"><a href="#">ABOUT</a></button></li>
+          <li><button class="btn" onclick="location.href = '../index.php'">HOME</button></li>
+          <li><button class="btn" onclick="location.href = '#'">ABOUT</button></li>
           <!-- <li><button class="btn"><a href="../body/about.php">ABOUT</a></button></li> -->
-          <li><button class="btn"><a href="#">CONTACT</a></button></li>
+          <li><button class="btn" onclick="location.href = '$'">CONTACT</button></li>
           <!-- <li><button class="btn"><a href="../body/contact.php">CONTACT</a></button></li> -->
-          <li><button class="btn"><a href="../applicant/register_applicant.php" >SIGNUP</a></button></li>
-          <li><button class="btn" id="login"><a href="../applicant/login_applicant.php">LOGIN</a></button></li>
+          <li><button class="btn" onclick="location.href = '../applicant/register_applicant.php'">SIGNUP</button></li>
+          <li><button class="btn" id="login" onclick="location.href = '../applicant/login_applicant.php'">LOGIN</button></li>
         </ul>
       </div>
 

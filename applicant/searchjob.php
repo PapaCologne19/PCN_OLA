@@ -101,7 +101,6 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
 
           <div class="search-title">
             <h1>SEARCH JOB VACANCIES</h1>
-            <p>You may search by Job title, Work Location (Street, Barangay, City, State), and Company Name.</p>
           </div>
 
           <div class="search-form">
@@ -125,7 +124,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
     <div class="job other-elements" id="other-elements">
 
 <div class="row" style="margin: 3rem;">
-  <h4><strong>JOB OPENINGS</strong></h4>
+  <h4>JOB OPENINGS</h4>
   <?php
   $query = "SELECT * FROM projects";
   $result = mysqli_query($con, $query);
@@ -145,7 +144,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
       $select = "SELECT * FROM mrf WHERE tracking = '$tracking'";
       $select_result = $con->query($select);
       while($select_row = $select_result->fetch_assoc()){
-      $image = '../assets/img/pcn.png';
+      $image = '../img/pcn.png';
       $diff = $row['diff'];
       if ($diff < 60) {
         $time_ago = $diff . " seconds ago";
@@ -171,8 +170,8 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
               <a href="job_details.php?jobid=<?php echo $row['id']; ?>" style="text-decoration: none;">
                 <div class="card-body">
                   <img width="30%" alt="Company Logo" style="box-sizing: border-box;" <?php echo '<img src="../imageStorage/' . $image . '" />'; ?> <br><br>
-                  <p class="card-title" style="text-align: left !important; color: #213675 !important;"><?php echo $row['project_title']; ?></p>
-                  <p style="text-transform: capitalize; font-weight: 600"><?php echo $row['client_company_id']; ?></p>
+                  <p class="card-title" style="text-align: left !important;  color: #279EFF !important;"><?php echo $row['project_title']; ?></p>
+                  <p style="font-family: 'Roboto', sans-serif;"><?php echo $row['client_company_id']; ?></p>
                   <p style="color: #6e6e6e; z-index: -1; background: transparent;">Posted on <?php echo $time_ago; ?></p>
                 </div>
               </a>

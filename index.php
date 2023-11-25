@@ -44,7 +44,7 @@
    <div class="nav">
       <div class="d-flex justify-content-start" id="logo" style="width: 100%;">
       <a href="index.php" class="logo d-flex align-items-center w-auto">
-        <img src="assets/img/pcn.png" class="mx-3" alt="HR Logo" width="20%">
+        <img src="img/pcn.png" class="mx-3" alt="HR Logo" width="20%">
         <!-- <span class="d-lg-block small mb-0" style="font-family: 'Poiret One', cursive !important; color: #000000; font-weight: 600;">ALEGARIO<b id="animated-text" style="font-family: 'Poiret One', cursive !important;"> CURE</b></span> -->
       </a>
     </div>
@@ -57,11 +57,11 @@
 
 
     <ul class="menu">
-    <li><button class="btn"><a class="active" href="#home">HOME</a></button></li>
-      <li><button class="btn"><a href="#about">ABOUT</a></button></li>
-      <li><button class="btn"><a href="#contact">CONTACT</a></button></li>
-      <li><button class="btn"><a href="applicant/register_applicant.php">SIGNUP</a></button></li>
-      <li><button class="btn" id="login"><a href="applicant/login_applicant.php">LOGIN</a></button></li>
+    <li><button class="btn active" onclick="location.href = '#home'">HOME</li>
+      <li><button class="btn" onclick="location.href = '#about'">ABOUT</li>
+      <li><button class="btn" onclick="location.href = '#contact'">CONTACT</button></li>
+      <li><button class="btn" onclick="location.href = 'applicant/register_applicant.php'">SIGNUP</button></li>
+      <li><button class="btn" id="login" onclick="location.href = 'applicant/login_applicant.php'">LOGIN</button></li>
     </ul>
     </div>
     <div class="d-flex justify-content-end py-4" id="icons" style="width: 100%;">
@@ -83,12 +83,12 @@
 
         <div class="text">
           <h1>Build your <br> Bright future <br> right now</h1><br>
-          <h6>Begin your journey here. Explore job opportunities that suit you. We offer a variety of positions for job seekers at all experience levels.</h6>
+          <h6>Shape your promising future today. Explore boundless opportunities and build a career that defines success. Start building your bright career now.</h6>
           <br><br>
 
           <ul>
             <li>
-              <a href="job/search_job.php" id="home-button">Find Jobs Now</a>
+              <a href="job/search_job.php" id="home-button">Apply Now</a>
             </li>
           </ul>
           
@@ -97,7 +97,7 @@
 
         <div class="home-image">
           <div class="row justify-content-end" style="width: 100vh;"></div>
-          <img src="img/Marketing consulting-cuate.svg" width="40%" class="rounded" alt="..." id="img">
+          <img src="img/Code review-cuate.svg" width="40%" class="rounded" alt="..." id="img">
         </div>
 
       </div>
@@ -111,7 +111,7 @@
 
         <div class="about" style="background-image: linear-gradient(to right, #fff, #fff, #fff) !important; background-size: cover; height: 100vh">
           <div class="row justify-content-start" style="width: 100vh;"></div>
-          <img src="img/Gut health-cuate.svg" width="90%" class="rounded" alt="..." id="img2">
+          <img src="img/Thinking face-cuate.svg" width="90%" class="rounded" alt="..." id="img2">
         </div>
 
         <div class="description">
@@ -140,7 +140,7 @@
             <ul class="elementor-icon-list-items">
               <li class="elementor-icon-list-item">
                 <span class="elementor-icon-list-icon">
-                  <i class="fa-sharp fa-solid fa-location-dot"></i>
+                  <img src="img/geo-alt.svg" alt="" width="10%">
                 </span>
                 <span class="elementor-icon-list-text">
                   <p>1071 Brgy. Kaligayahan <br>
@@ -150,16 +150,15 @@
               </li>
               <li class="elementor-icon-list-item">
                 <span class="elementor-icon-list-icon">
-                  <i class="fa-solid fa-phone"></i>
+                  <img src="img/telephone.svg" alt="" width="10%" >
                 </span>
                 <span class="elementor-icon-list-text">
-                  <br>
                   <p>1234-5678 <br>1122-3344</p>
                 </span>
               </li>
               <li class="elementor-icon-list-item">
                 <span class="elementor-icon-list-icon">
-                  <i class="fa-solid fa-envelope"></i>
+                  <img src="img/envelope.svg" alt="" width="10%">
                 </span>
                 <span class="elementor-icon-list-text">
                   <br>
@@ -171,7 +170,7 @@
 
         <div class="contact-image" style="background-image: linear-gradient(to right, #fff, #fff, #fff) !important; background-size: cover; height: 100vh">
           <div class="row justify-content-end" style="width: 100vh;"></div>
-          <img src="img/Public health-amico.svg" width="50%" class="rounded" alt="..." id="img3">
+          <img src="img/Get in touch-cuate (1).svg" width="50%" class="rounded" alt="..." id="img3">
         </div>
 
       </div>
@@ -184,7 +183,7 @@
 
 
 
-  <footer class="footer" id="footer" style="background: #121212;">
+  <footer class="footer" id="footer" style="background: #272829;">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2" id="footer_links">
@@ -238,7 +237,7 @@
         <div class="col-sm-3 col-md-2" id="footer_links">
           <ul>
             <span>SOCIAL MEDIA</span>
-            <p style="color: #fff !important;">Follow us</p>
+            <p style="color: #fff !important; font-family: 'Inter', san-serif !important;">Follow us</p>
 
             <a href="#" target="_blank" class="fa fa-facebook-square" style="color: #fff !important;"></a>
             <a href="#" target="_blank" class="fa fa-instagram" style="color: #fff !important;"></a>
@@ -250,8 +249,8 @@
       </div>
     </div>
     <br><br>
-    <div class="footer_credit small mb-0" style="text-align: center; background: #131313 !important;">
-      <p style="color: #ADADAD !important;">Copyright &copy; 2023. All rights Reserved. <br>Developed by <a href="https://www.facebook.com/Jpgomera19/" target="_blank" style="color: #fff !important;">James Philip Gomera</a></p>
+    <div class="footer_credit small mb-0" style="text-align: center; background: #272829 !important;">
+      <p style="color: #ADADAD !important; font-family: 'Inter', san-serif !important;">Copyright &copy; 2023. All rights Reserved.</p>
     </div>
   </footer>
   <script src="js/bootstrap.js"></script>

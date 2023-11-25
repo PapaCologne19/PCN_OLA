@@ -50,6 +50,11 @@ html, body{
     top: 0 !important;
 }
 
+.login_button:hover{
+    background-color: #279EFF !important;
+    color: white !important; 
+}
+
 a:hover{
     color: red !important;
 }
