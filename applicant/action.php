@@ -10,7 +10,7 @@ if (isset($_POST['login'])) {
   $username = mysqli_real_escape_string($con, $_POST['username']);
   $password = mysqli_real_escape_string($con, $_POST['password']);
 
-  $query = "SELECT * FROM applicant WHERE username = '$username'";
+  $query = "SELECT * FROM applicant WHERE username = '$username' AND is_deleted = '0'";
   $result = mysqli_query($con, $query);
 
   if (mysqli_num_rows($result) > 0) {

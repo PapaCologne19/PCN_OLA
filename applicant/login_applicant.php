@@ -9,7 +9,7 @@ if (isset($_POST['login'])) {
 
   if (!empty($username) && !empty($password)) {
 
-    $query = "SELECT * FROM applicant WHERE username = '$username'";
+    $query = "SELECT * FROM applicant WHERE username = '$username' AND is_deleted = '0'";
     $result = mysqli_query($con, $query);
     if (mysqli_num_rows($result) > 0) {
       $row = mysqli_fetch_assoc($result);
