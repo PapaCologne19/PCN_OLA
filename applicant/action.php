@@ -87,31 +87,31 @@ if (isset($_POST['open_btn_set'])) {
 
 
 // Appying Jobs and submitting resume
-if (isset($_POST['apply'])) {
-  $job_id = $_POST['job_id'];
-  $applicant_id = $_POST['applicant_id'];
+// if (isset($_POST['apply'])) {
+//   $job_id = $_POST['job_id'];
+//   $applicant_id = $_POST['applicant_id'];
 
-  $file = $_FILES['file'];
-  $filename = $_FILES["file"]["name"];
-  $tempname = $_FILES["file"]["tmp_name"];
-  $folder = "../employer/resumeStorage/" . $filename;
+//   $file = $_FILES['file'];
+//   $filename = $_FILES["file"]["name"];
+//   $tempname = $_FILES["file"]["tmp_name"];
+//   $folder = "../employer/resumeStorage/" . $filename;
 
-  $folderDestination = $folder;
+//   $folderDestination = $folder;
 
-  // Get the MIME type of the uploaded file
-  $file_type = mime_content_type($tempname);
+//   // Get the MIME type of the uploaded file
+//   $file_type = mime_content_type($tempname);
 
-  // List of allowed MIME types
-  $allowed_types = array('application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+//   // List of allowed MIME types
+//   $allowed_types = array('application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 
-  // Check if the applicant has been rejected for the same job before
-  $check_query = "SELECT project.*, applicant.*, rejected.* 
+//   // Check if the applicant has been rejected for the same job before
+//   $check_query = "SELECT project.*, applicant.*, rejected.* 
 
-    FROM projects project, applicant applicant, rejected_applicants_history rejected 
-    WHERE project.client_company_id = rejected.job_applied 
-    AND applicant.id = rejected.applicant_id
-    AND project.id = '$job_id' 
-    AND rejected.username = '" . $_SESSION['username'] . "'";
+//     FROM projects project, applicant applicant, rejected_applicants_history rejected 
+//     WHERE project.client_company_id = rejected.job_applied 
+//     AND applicant.id = rejected.applicant_id
+//     AND project.id = '$job_id' 
+//     AND rejected.username = '" . $_SESSION['username'] . "'";
 
   if (isset($_POST['apply'])) {
     $job_id = $_POST['job_id'];
@@ -156,7 +156,7 @@ if (isset($_POST['apply'])) {
       // check if the applicant is eligible to apply again
       // Change if you want to customize the number of months of rejection using this code $number_of_months. But for now, one month muna
       if ($months_diff < 1) {
-        $_SESSION['errorMessage'] = "You are rejected to this job. You can re-apply again after 3 months";
+        $_SESSION['errorMessage'] = "You are rejected to this job. You can re-apply again after 1 months";
         header("location: job_details.php?jobid=$job_id");
         exit;
       }
@@ -207,7 +207,7 @@ if (isset($_POST['apply'])) {
             $applicant_name_subfolder = "Requirements";
             $folder_name_subfolder = $applicant_name_subfolder;
             $destination_subfolder = $destination . "/" . $folder_name_subfolder;
-            $folder_path =  "201 Files/" . $applicant_name . $folder_name_subfolder;
+            $folder_path =  "201 Files/" . $applicant_name . "/" . $folder_name_subfolder;
 
             mkdir("{$destination_subfolder}", 0777);
 
@@ -255,7 +255,6 @@ if (isset($_POST['apply'])) {
         }
       }
     }
-  }
   header("location: searchjob.php");
   exit(0);
 }

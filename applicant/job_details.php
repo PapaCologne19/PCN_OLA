@@ -1,6 +1,5 @@
  <?php
   include "../database/connection.php";
-  include "../body/function.php";
 
   session_start();
   $errors = array();
