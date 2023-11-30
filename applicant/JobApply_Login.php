@@ -1,6 +1,5 @@
 <?php
-include "../database/connection.php";
-include "../body/function.php";
+include "../database/connection.php";   
 session_start();
 $errors = array();
 ?>
@@ -257,7 +256,7 @@ $errors = array();
     <script src="../assets/vendor/quill/quill.min.js"></script>
     <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="../ssets/vendor/php-email-form/validate.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../assets/js/main.js"></script>
