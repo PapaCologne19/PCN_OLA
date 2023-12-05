@@ -261,7 +261,7 @@ html, body{
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important; 
     /* background-image: linear-gradient(to right, #5a4be2,#b41313) !important; */
-    background-image: linear-gradient(to right, #1d8a81,#1d8a81) !important;
+    background-image: linear-gradient(to right, #279EFF,#279EFF) !important;
 }
 
 .contact-form .form-control{
@@ -633,6 +633,9 @@ html, body{
   .elementor-icon-list-item{
     left: 0;
   }
+  .elementor-icon-list-item img{
+    padding: 2rem !important;
+  }
   .elementor-icon-list-items{
     left: 0;
   }
@@ -831,5 +834,12 @@ html, body{
   .contact-form h2{
     display: flex;
     justify-content: center;
+  }
+  .elementor-icon-list-item{
+    padding: 1rem;
+    justify-content: center;
+  }
+  .elementor-icon-list-icon img{
+    float: left;
   }
 }

@@ -2,7 +2,7 @@
 session_start();
 include "../database/connection.php";
 include "../body/function.php";
-
+$date_now = date('Y-m-d');
 // Login User
 if (isset($_POST['login'])) {
 
@@ -113,26 +113,26 @@ if (isset($_POST['open_btn_set'])) {
 //     AND project.id = '$job_id' 
 //     AND rejected.username = '" . $_SESSION['username'] . "'";
 
-  if (isset($_POST['apply'])) {
-    $job_id = $_POST['job_id'];
-    $applicant_id = $_POST['applicant_id'];
+if (isset($_POST['apply'])) {
+  $job_id = $_POST['job_id'];
+  $applicant_id = $_POST['applicant_id'];
 
-    $file = $_FILES['file'];
-    $filename = $_FILES["file"]["name"];
-    $tempname = $_FILES["file"]["tmp_name"];
-    $folder = "../resumeStorage/" . $filename;
+  $file = $_FILES['file'];
+  $filename = $_FILES["file"]["name"];
+  $tempname = $_FILES["file"]["tmp_name"];
+  $folder = "../resumeStorage/" . $filename;
 
-    $folderDestination = $folder;
+  $folderDestination = $folder;
 
-    // Get the MIME type of the uploaded file
-    $file_type = mime_content_type($tempname);
+  // Get the MIME type of the uploaded file
+  $file_type = mime_content_type($tempname);
 
-    // List of allowed MIME types
-    $allowed_types = array('application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+  // List of allowed MIME types
+  $allowed_types = array('application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 
 
-    // Check if the applicant has been rejected for the same job before
-    $check_query = "SELECT project.*, applicant.*, resume.*, rejected.* 
+  // Check if the applicant has been rejected for the same job before
+  $check_query = "SELECT project.*, applicant.*, resume.*, rejected.* 
         FROM projects project, applicant applicant, applicant_resume resume, rejected_applicants_history rejected 
         WHERE project.id = resume.project_id 
         AND applicant.id = resume.applicant_id
@@ -140,126 +140,144 @@ if (isset($_POST['open_btn_set'])) {
         AND project.id = '$job_id' 
         AND rejected.username = '" . $_SESSION['username'] . "'";
 
-    $check_result = mysqli_query($con, $check_query);
+  $check_result = mysqli_query($con, $check_query);
 
-    if (mysqli_num_rows($check_result) > 0) {
+  if (mysqli_num_rows($check_result) > 0) {
 
-      // get the date when the applicant was rejected
-      $row = mysqli_fetch_assoc($check_result);
-      $rejected_date = $row['date_rejected'];
-      $number_of_months = $row['number_of_months'];
+    // get the date when the applicant was rejected
+    $row = mysqli_fetch_assoc($check_result);
+    $rejected_date = $row['date_rejected'];
+    $number_of_months = $row['number_of_months'];
 
-      // calculate the time difference between the current date and the rejected date
-      $time_diff = time() - strtotime($rejected_date);
-      $months_diff = floor($time_diff / (30 * 24 * 60 * 60));
+    // calculate the time difference between the current date and the rejected date
+    $time_diff = time() - strtotime($rejected_date);
+    $months_diff = floor($time_diff / (30 * 24 * 60 * 60));
 
-      // check if the applicant is eligible to apply again
-      // Change if you want to customize the number of months of rejection using this code $number_of_months. But for now, one month muna
-      if ($months_diff < 1) {
-        $_SESSION['errorMessage'] = "You are rejected to this job. You can re-apply again after 1 months";
-        header("location: job_details.php?jobid=$job_id");
-        exit;
-      }
-    }
-
-    // Check if the MIME type is in the list of allowed types
-    else if (!in_array($file_type, $allowed_types)) {
-      $_SESSION['errorMessage'] = "Please upload PDF and Docx file only.";
+    // check if the applicant is eligible to apply again
+    // Change if you want to customize the number of months of rejection using this code $number_of_months. But for now, one month muna
+    if ($months_diff < 1) {
+      $_SESSION['errorMessage'] = "You are rejected to this job. You can re-apply again after 1 months";
       header("location: job_details.php?jobid=$job_id");
       exit;
     }
+  }
 
-    $today = date("Y-m-d");
+  // Check if the MIME type is in the list of allowed types
+  else if (!in_array($file_type, $allowed_types)) {
+    $_SESSION['errorMessage'] = "Please upload PDF and Docx file only.";
+    header("location: job_details.php?jobid=$job_id");
+    exit;
+  }
 
-    // Check if the applicant has already applied to 3 different jobs today
-    $query = "SELECT COUNT(DISTINCT project_id) as job_count FROM applicant_resume
+  $today = date("Y-m-d");
+
+  // Check if the applicant has already applied to 3 different jobs today
+  $query = "SELECT COUNT(DISTINCT project_id) as job_count FROM applicant_resume
        WHERE applicant_id = $applicant_id AND DATE(date_applied) = '$today'";
-    $result = mysqli_query($con, $query);
-    if (mysqli_num_rows($result) > 0) {
-      $row = mysqli_fetch_assoc($result);
-      if ($row['job_count'] >= 100) {
+  $result = mysqli_query($con, $query);
+  if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    if ($row['job_count'] >= 100) {
 
-        // Show the error message
-        $_SESSION['errorMessage'] = "You already applied to 3 different jobs today.";
+      // Show the error message
+      $_SESSION['errorMessage'] = "You already applied to 3 different jobs today.";
+      header("location: job_details.php?jobid=$job_id");
+      mysqli_close($con);
+      exit;
+    } else {
+
+
+      // Resume checking
+      $resume_check = "SELECT * FROM applicant_resume WHERE applicant_id = '$applicant_id' AND project_id = '$job_id'";
+      $res = mysqli_query($con, $resume_check);
+      if (mysqli_num_rows($res) > 0) {
+        $_SESSION['errorMessage'] = "You are already applied to this Job!";
         header("location: job_details.php?jobid=$job_id");
-        mysqli_close($con);
-        exit;
-      } else {
+      } else if (!empty($filename)) {
 
+        $applicant_name = chop($_SESSION['firstname'] . " " . $_SESSION['middlename'] . " " . $_SESSION['lastname'] . " " . $_SESSION['extension_name']);
+        $folder_name = $applicant_name;
+        $destination = "../201 Files/" . $folder_name;
 
-        // Resume checking
-        $resume_check = "SELECT * FROM applicant_resume WHERE applicant_id = '$applicant_id' AND project_id = '$job_id'";
-        $res = mysqli_query($con, $resume_check);
-        if (mysqli_num_rows($res) > 0) {
-          $_SESSION['errorMessage'] = "You are already applied to this Job!";
-          header("location: job_details.php?jobid=$job_id");
-        } else if (!empty($filename)) {
+        if (file_exists($destination) && file_exists($filename)) {
+          $_SESSION['errorMessage'] = "Error";
+        } else {
+          mkdir("{$destination}", 0777);
 
-          $applicant_name = chop($_SESSION['firstname'] . " " . $_SESSION['middlename'] . " " . $_SESSION['lastname'] . " " . $_SESSION['extension_name']);
-          $folder_name = $applicant_name;
-          $destination = "../201 Files/" . $folder_name;
+          $applicant_name_subfolder = "Requirements";
+          $folder_name_subfolder = $applicant_name_subfolder;
+          $destination_subfolder = $destination . "/" . $folder_name_subfolder;
+          $folder_path =  "201 Files/" . $applicant_name . "/" . $folder_name_subfolder;
 
-          if (file_exists($destination) && file_exists($filename)) {
-            $_SESSION['errorMessage'] = "Error";
-          } else {
-            mkdir("{$destination}", 0777);
+          mkdir("{$destination_subfolder}", 0777);
 
-            $applicant_name_subfolder = "Requirements";
-            $folder_name_subfolder = $applicant_name_subfolder;
-            $destination_subfolder = $destination . "/" . $folder_name_subfolder;
-            $folder_path =  "201 Files/" . $applicant_name . "/" . $folder_name_subfolder;
+          $check_folder_query = "SELECT id FROM folder WHERE applicant_id = '$applicant_id' AND folder_name = '$applicant_name_subfolder' AND folder_path = '$folder_path'";
+          $check_folder_query_result = $con->query($check_folder_query);
+          $check_folder_query_row = $check_folder_query_result->fetch_assoc();
 
-            mkdir("{$destination_subfolder}", 0777);
+          if ($check_folder_query_result->num_rows === 0) {
+            $insert_folder = "INSERT INTO folder (applicant_id, folder_name, folder_path) VALUES(?, ?, ?)";
+            $insert_folder_result = $con->prepare($insert_folder);
+            $insert_folder_result->bind_param("iss", $applicant_id, $applicant_name_subfolder, $folder_path);
 
-            $check_folder_query = "SELECT id FROM folder WHERE applicant_id = '$applicant_id' AND folder_name = '$applicant_name_subfolder' AND folder_path = '$folder_path'";
-            $check_folder_query_result = $con->query($check_folder_query);
-            $check_folder_query_row = $check_folder_query_result->fetch_assoc();
-
-            if ($check_folder_query_result->num_rows === 0) {
-              $insert_folder = "INSERT INTO folder (applicant_id, folder_name, folder_path) VALUES(?, ?, ?)";
-              $insert_folder_result = $con->prepare($insert_folder);
-              $insert_folder_result->bind_param("iss", $applicant_id, $applicant_name_subfolder, $folder_path);
-
-              if ($insert_folder_result->execute()) {
-                $folder_id = $insert_folder_result->insert_id;
-                $sql = "INSERT INTO applicant_resume(applicant_id, project_id, folder_id, resume_file, resume_path) 
-                VALUES('$applicant_id', '$job_id', '$folder_id', '$filename', '$destination_subfolder')";
-                $result = mysqli_query($con, $sql);
-
-                if ($result) {
-                  move_uploaded_file($tempname, $destination_subfolder . DIRECTORY_SEPARATOR . $filename);
-                  $_SESSION['successMessage'] = "File uploaded successfully";
-                } else {
-                  $_SESSION['errorMessage'] = "Error" . mysqli_error($con);
-                }
-              } else {
-                $_SESSION['errorMessage'] = "Error";
-              }
-            } else {
-              $folder_id = $check_folder_query_row['id'];
+            if ($insert_folder_result->execute()) {
+              $folder_id = $insert_folder_result->insert_id;
               $sql = "INSERT INTO applicant_resume(applicant_id, project_id, folder_id, resume_file, resume_path) 
                 VALUES('$applicant_id', '$job_id', '$folder_id', '$filename', '$destination_subfolder')";
               $result = mysqli_query($con, $sql);
 
               if ($result) {
-                move_uploaded_file($tempname, $destination_subfolder . DIRECTORY_SEPARATOR . $filename);
-                $_SESSION['successMessage'] = "File uploaded successfully";
+                $file_title = "RESUME";
+                $insert_201 = "INSERT INTO 201files(applicant_id, folder_id, requirements_files, requirements_files_uploaded, file_description) 
+                    VALUES (?, ?, ?, ?, ?)";
+                $insert_201_result = $con->prepare($insert_201);
+                $insert_201_result->bind_param("iisss", $applicant_id, $folder_id, $filename, $date_now, $file_title);
+                if ($insert_201_result->execute()) {
+                  move_uploaded_file($tempname, $destination_subfolder . DIRECTORY_SEPARATOR . $filename);
+                  $_SESSION['successMessage'] = "File uploaded successfully";
+                } else {
+                  $_SESSION['errorMessage'] = "Error" . $con->error;
+                }
               } else {
                 $_SESSION['errorMessage'] = "Error" . mysqli_error($con);
               }
+            } else {
+              $_SESSION['errorMessage'] = "Error";
+            }
+          } else {
+            $folder_id = $check_folder_query_row['id'];
+            $sql = "INSERT INTO applicant_resume(applicant_id, project_id, folder_id, resume_file, resume_path) 
+                VALUES('$applicant_id', '$job_id', '$folder_id', '$filename', '$destination_subfolder')";
+            $result = mysqli_query($con, $sql);
+
+            if ($result) {
+              $file_title = "RESUME";
+              $insert_201 = "INSERT INTO 201files(applicant_id, folder_id, requirements_files, requirements_files_uploaded, file_description) 
+                    VALUES (?, ?, ?, ?, ?)";
+              $insert_201_result = $con->prepare($insert_201);
+              $insert_201_result->bind_param("iisss", $applicant_id, $folder_id, $filename, $date_now, $file_title);
+              if ($insert_201_result->execute()) {
+                move_uploaded_file($tempname, $destination_subfolder . DIRECTORY_SEPARATOR . $filename);
+                $_SESSION['successMessage'] = "File uploaded successfully";
+              } else {
+                $_SESSION['errorMessage'] = "Error" . $con->error;
+              }
+            } else {
+              $_SESSION['errorMessage'] = "Error" . mysqli_error($con);
             }
           }
-        } else {
-
-          $_SESSION['errorMessage'] = "Failed to upload file";
         }
+      } else {
+
+        $_SESSION['errorMessage'] = "Failed to upload file";
       }
     }
+  }
   header("location: searchjob.php");
   exit(0);
 }
 
-// Submission of Resume File
+// Submission of Mandatories File
 if (isset($_POST['submit_files'])) {
   $files = $_FILES['files'];
   $project_id = $_POST['project_id'];
@@ -298,10 +316,11 @@ if (isset($_POST['submit_files'])) {
       $select_folder_row = $select_folder_result->fetch_assoc();
       $folder_id = $select_folder_row['id'];
 
-      $insert_file = "INSERT INTO `201files` (`applicant_id`, `project_id`, `folder_id`, `requirements_files`, `requirements_files_uploaded`) 
-                            VALUES (?, ?, ?, ?, ?)";
+      $file_title = "MANDATORIES";
+      $insert_file = "INSERT INTO `201files` (`applicant_id`, `project_id`, `folder_id`, `requirements_files`, `requirements_files_uploaded`, `file_description`) 
+                            VALUES (?, ?, ?, ?, ?, ?)";
       $stmt = $con->prepare($insert_file);
-      $stmt->bind_param("sssss", $applicant_id, $project_id, $folder_id, $filename, $date_now);
+      $stmt->bind_param("ssssss", $applicant_id, $project_id, $folder_id, $filename, $date_now, $file_title);
       $insert_file_result = $stmt->execute();
 
       if ($insert_file_result) {
@@ -320,6 +339,10 @@ if (isset($_POST['submit_files'])) {
 
 // For Returning Signed LOA File
 if (isset($_POST['signed_loa_button'])) {
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+
+  $applicant_id = $_SESSION['id'];
   $deployment_id = $con->real_escape_string($_POST['deployment_id']);
   $file = $_FILES['signed_loa'];
   $filename = $_FILES["signed_loa"]["name"];
@@ -327,36 +350,42 @@ if (isset($_POST['signed_loa_button'])) {
   $signed_loa_status = "SUBMITTED";
 
   $select = "SELECT deployment.*, employee.*, resumes.*
-  FROM deployment deployment, employees employee, applicant_resume resumes
-  WHERE deployment.employee_id = employee.id
-  AND deployment.app_id = resumes.applicant_id
-  AND deployment.id = '$deployment_id'";
+    FROM deployment deployment, employees employee, applicant_resume resumes
+    WHERE deployment.employee_id = employee.id
+    AND deployment.app_id = resumes.applicant_id
+    AND deployment.id = '$deployment_id'";
   $select_result = $con->query($select);
   $select_row = $select_result->fetch_assoc();
+  $employee_id = $select_row['employee_id'];
 
+  // Selecting Folder
+  $select_folder = "SELECT * FROM folder WHERE deployment_id = '$deployment_id' AND employee_id = '" . $select_row['employee_id'] . "' ORDER BY id DESC LIMIT 1";
+  $select_folder_result = $con->query($select_folder);
+  $select_folder_row = $select_folder_result->fetch_assoc();
 
-  $start_loa = $select_row['loa_start_date'];
-  $end_loa = $select_row['loa_end_date'];
-  $start_loa_date = new DateTime($start_loa);
-  $start_loa_formatted = $start_loa_date->format('F j, Y');
-  $end_loa_date = new DateTime($end_loa);
-  $end_loa_formatted = $end_loa_date->format('F j, Y');
-
-  $applicant_name = chop($select_row['firstnameko'] . " " . $select_row['mnko'] . " " . $select_row['lastnameko'] . " " . $select_row['extnname']);
-  $folder_path = $select_row['resume_path'];
-  $folder_name = $applicant_name;
-  $applicant_name_subfolder = $applicant_name . "- From " . $start_loa_formatted . " To " . $end_loa_formatted;
-  $folder_name_subfolder = $applicant_name_subfolder;
-  $destination_subfolder = "../" . $folder_path . "/" . $folder_name_subfolder . "/";
-
+  $folder_id = $select_folder_row['id'];
+  $destination_subfolder = "../" . $select_folder_row['folder_path'] . "/";
 
   if (!empty($filename)) {
+    // Updating deployment table
     $insert_loa = "UPDATE deployment SET signed_loa_file = ?, signed_loa_status = ? WHERE id = ?";
     $stmt = $con->prepare($insert_loa);
     $stmt->bind_param("sss", $filename, $signed_loa_status, $deployment_id);
     if ($stmt->execute()) {
-      move_uploaded_file($tempname, $destination_subfolder . $filename);
-      $_SESSION['successMessage'] = "Success";
+
+      // Inserting to 201 files
+      $file_title = "SIGNED LOA";
+      $insert_201 = "INSERT INTO 201files(applicant_id, folder_id, employee_id, requirements_files, requirements_files_uploaded, file_description) 
+      VALUES (?, ?, ?, ?, ?, ?)";
+      $insert_201_result = $con->prepare($insert_201);
+      $insert_201_result->bind_param("ssssss", $applicant_id, $folder_id, $employee_id, $filename, $date_now, $file_title);
+
+      if ($insert_201_result->execute()) {
+        move_uploaded_file($tempname, $destination_subfolder . DIRECTORY_SEPARATOR . $filename);
+        $_SESSION['successMessage'] = "File uploaded successfully";
+      } else {
+        $_SESSION['errorMessage'] = "Error" . $con->error;
+      }
     } else {
       $_SESSION['errorMessage'] = "Error";
     }

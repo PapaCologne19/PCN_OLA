@@ -270,6 +270,9 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
         opacity: 100%;
         border: none;
     }
+    .search-form .search_icon{
+        display: none !important;
+      }
 }
 
 /* For Tablet View */

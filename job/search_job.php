@@ -70,7 +70,7 @@ include '../body/function.php';
         <div class="search-form">
           <form action="searchresults.php" method="get" class="row" id="search-form">
             <div class="col-xl-8 col-lg-8 col-md-8">
-              <i class="bi bi-search" style="position: absolute; left: 2rem; padding-top: 1rem;"></i>
+              <i class="bi bi-search search_icon" style="position: absolute; left: 2rem; padding-top: 1rem;"></i>
               <input type="search" name="search" id="search" class="form-control" placeholder="Search" style="box-shadow: none; font-family: 'Roboto', sans-serif" required>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4">

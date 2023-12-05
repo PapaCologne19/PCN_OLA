@@ -285,7 +285,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
 
       $(function() {
         var numberOfItems = $(".card-content .card").length;
-        var limitPerPage = 12;
+        var limitPerPage = 8;
         var totalPages = Math.ceil(numberOfItems / limitPerPage);
         var paginationSize = 7;
         var currentPage;

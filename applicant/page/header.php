@@ -36,8 +36,8 @@
           <li><button class="btn" onclick="location.href = 'searchjob.php'">HOME</button></li>
           <li><button class="btn" onclick="location.href = 'about.php'">ABOUT</button></li>
           <li><button class="btn" onclick="location.href = 'contact.php'">CONTACT</button></li>
-          <!-- <li><button class="btn" id="profile">PROFILE</button></li> -->
-          <!-- <li><button class="btn" id="logout" onclick="location.href = '../body/logout.php'">LOGOUT</button></li> -->
+          <li><button class="btn" id="profile" onclick="location.href='profile.php'">PROFILE</button></li>
+          <li><button class="btn" id="logout" onclick="location.href = '../body/logout.php'">LOGOUT</button></li>
         </ul>
       </div>
 

@@ -184,16 +184,16 @@
 
 
   <footer class="footer" id="footer" style="background: #272829;">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <div class="col-sm-3 col-md-2" id="footer_links">
+        <!-- <div class="col-sm-0 col-md-2" id="footer_links footer_links1">
           <div class="d-flex justify-content-start py-4" id="logo">
             <a href="index.php" class="logo d-flex align-items-center w-auto">
             </a>
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-sm-3 col-md-2" id="footer_links">
+        <div class="col-sm-3 col-md-3" id="footer_links">
           <ul>
             <span>JOB SEEKERS</span>
             <li>
@@ -207,7 +207,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-sm-3 col-md-2" id="footer_links">
+        <div class="col-sm-3 col-md-3" id="footer_links">
           <ul>
             <span>ABOUT US</span>
             <li>
@@ -224,7 +224,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-sm-3 col-md-2" id="footer_links">
+        <div class="col-sm-3 col-md-3" id="footer_links">
           <ul>
             <span>ADDRESS</span>
             <li>
@@ -234,7 +234,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-sm-3 col-md-2" id="footer_links">
+        <div class="col-sm-3 col-md-3" id="footer_links">
           <ul>
             <span>SOCIAL MEDIA</span>
             <p style="color: #fff !important; font-family: 'Inter', san-serif !important;">Follow us</p>

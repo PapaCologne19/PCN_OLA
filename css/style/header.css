@@ -318,9 +318,13 @@
       .menu > li:not(:last-child) {
         border-bottom: 1px solid #444;
       }
-      .menu li a{
+      .menu li .btn{
         color: rgb(212, 212, 212) !important;
         font-size: 13px;
+      }
+      #login{
+        padding: 0rem !important;
+        border: none !important;
       }
       #logout{
         display: flex; 
